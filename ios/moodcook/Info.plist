@@ -26,21 +26,13 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-<<<<<<< HEAD
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
-=======
->>>>>>> 8fdbe0e (sign up page)
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-<<<<<<< HEAD
 	<string></string>
-=======
-	<string/>
->>>>>>> 8fdbe0e (sign up page)
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -55,13 +47,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-<<<<<<< HEAD
-=======
 	<key>UIAppFonts</key>
 	<array>
 		<string>FragmentMono-Regular.ttf</string>
 		<string>FragmentMono-Italic.ttf</string>
 	</array>
->>>>>>> 8fdbe0e (sign up page)
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+	</array>
 </dict>
 </plist>

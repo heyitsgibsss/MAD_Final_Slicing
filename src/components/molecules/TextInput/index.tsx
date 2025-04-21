@@ -19,9 +19,11 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   input: {
-    borderWidth: 0.5,
+    borderWidth: 0.2,
     borderColor: '#020202',
     borderRadius: 8,
     padding: 10,
+    width: 285,
+    alignSelf: 'center',
   },
 });

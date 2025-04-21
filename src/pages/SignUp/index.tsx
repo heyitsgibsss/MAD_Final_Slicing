@@ -1,118 +1,107 @@
-import React, {useState} from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {NullPhoto} from '../../assets';
-import {Button, Gap} from '../../components/atoms';
-import {Header, TextInput} from '../../components/molecules';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {showMessage} from 'react-native-flash-message';
-
+// screens/SignUp.tsx
+import React from 'react';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import TextInput from '../../components/molecules/TextInput/signupindex';
+import {Gap} from '../../components/atoms/index';
 const SignUp = ({navigation}) => {
-  const [photo, setPhoto] = useState(NullPhoto);
-
-  const onSubmit = () => {
-    () => navigation.navigate('SignIn');
-  };
-
-  const getImage = async () => {
-    const result = await launchImageLibrary({
-      maxHeight: 100,
-      maxWidth: 100,
-      quality: 0.5,
-      includeBase64: true,
-      mediaType: 'photo',
-    });
-
-    if (result.didCancel) {
-      showMessage({
-        message: 'Pilih foto dibatalkan',
-        type: 'danger',
-      });
-    } else {
-      const assets = result.assets[0];
-      const base64 = `data:${assets.type};base64, ${assets.base64}`;
-      const source = {uri: base64};
-      setPhoto(source);
-    }
-  };
   return (
-    <ScrollView style={styles.container}>
-      <Header title="Sign Up" />
-      <Gap height={24} />
-      <View style={styles.contentWrapper}>
-        <View style={styles.profileContainer}>
-          <View style={styles.profile}>
-            <View style={styles.addPhoto}>
-              <TouchableOpacity activeOpacity={0.5} onPress={getImage}>
-                <Image source={photo} style={styles.avatar} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <Gap height={26} />
-        <TextInput label="Full Name" placeholder="Type your full name" />
-        <Gap height={16} />
-        <TextInput
-          label="Email Address"
-          placeholder="Type your email address"
+    <View style={styles.pageContainer}>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../../assets/Moodcook.png')}
+          style={styles.logo}
         />
-        <Gap height={16} />
-        <TextInput label="Password" placeholder="Type your password" />
-        <Gap height={24} />
-        <Button label="Continue" onPress={onSubmit} />
       </View>
-    </ScrollView>
+
+      <Text style={styles.createAccount}>CREATE AN ACCOUNT</Text>
+
+      <View style={styles.formContainer}>
+        <TextInput label="name" />
+        <Gap height={2} />
+        <TextInput label="email" keyboardType="email-address" />
+        <Gap height={2} />
+        <TextInput label="password" secureTextEntry />
+        <Gap height={2} />
+        <TextInput label="confirm password" secureTextEntry />
+        <Gap height={2} />
+
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <Text style={styles.loginText}>
+            already have an account?{' '}
+            <Text style={styles.loginLink}>login here</Text>
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.registerButton}>
+          <Text style={styles.registerButtonText}>register</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.footerText}>created by avg</Text>
+    </View>
   );
 };
 
 export default SignUp;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentWrapper: {
-    backgroundColor: '#FFFFFF',
-    flex: 1,
+  pageContainer: {
+    backgroundColor: '#fff',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 24,
+    paddingTop: 60,
+    paddingBottom: 20,
   },
-  profileContainer: {
-    marginTop: 26,
+  logoContainer: {
     alignItems: 'center',
   },
-  profile: {
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 110,
-    width: 110,
-    borderRadius: 110 / 2,
-    borderWidth: 1,
-    borderColor: '#8D92A3',
-    borderStyle: 'dashed',
+  logo: {
+    width: 135,
+    height: 135,
+    resizeMode: 'contain',
   },
-  addPhoto: {
-    backgroundColor: '#F0F0F0',
-    width: 90,
-    height: 90,
-    borderRadius: 90 / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addPhotoLabel: {
-    fontFamily: 'Poppins-Light',
-    fontSize: 14,
-    width: 40,
+  createAccount: {
+    fontFamily: 'Montserrat-Bold',
+    marginTop: 25,
+    marginBottom: 30,
+    height: 22,
+    letterSpacing: 0.5,
+    fontSize: 16,
     textAlign: 'center',
+    color: '#000000',
   },
-  avatar: {
-    height: 90,
-    width: 90,
-    borderRadius: 90 / 2,
+  formContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  loginText: {
+    fontFamily: 'FragmentMono-Regular',
+    fontSize: 10,
+    height: 22,
+    color: '#000000 ',
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  registerButton: {
+    marginTop: 6,
+    width: 285,
+    height: 30,
+    backgroundColor: '#333',
+    paddingVertical: 2,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+  },
+  registerButtonText: {
+    textAlign: 'center',
+    alignItems: 'center',
+    color: '#ffffff',
+    fontSize: 16,
+  },
+  footerText: {
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 12,
+    color: '#000',
+    marginTop: 170,
   },
 });

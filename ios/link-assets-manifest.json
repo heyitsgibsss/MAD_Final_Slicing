@@ -8,6 +8,21 @@
     {
       "path": "src/fonts/FragmentMono-Italic.ttf",
       "sha1": "4f963695f46a47977538848e9319a1ff4d58bbba"
+<<<<<<< HEAD
+=======
+    },
+    {
+      "path": "src/fonts/Montserrat-SemiBold.ttf",
+      "sha1": "d491c9d0af61faef59ca807737b560170f547f5b"
+    },
+    {
+      "path": "src/fonts/Montserrat-Regular.ttf",
+      "sha1": "1c8119b38eef1914a4fbd9f6cfdedf198445ab97"
+    },
+    {
+      "path": "src/fonts/Montserrat-Bold.ttf",
+      "sha1": "c7d907722af4fb845ab97d515bb414f29651f000"
+>>>>>>> 01df087 (sign up page updated commit)
     }
   ]
 }

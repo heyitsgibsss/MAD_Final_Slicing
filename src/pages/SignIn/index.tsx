@@ -21,7 +21,7 @@ const SignIn = ({navigation}) => {
 
         <View style={styles.formContainer}>
           <TextInput placeholder="email/username" />
-          <Gap height={16} />
+          <Gap height={1} />
           <TextInput placeholder="password" secureTextEntry />
           <Gap height={24} />
           <Button label="sign in" />
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 60,
+    paddingTop: 62,
     paddingBottom: 20,
   },
   contentContainer: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: 'FragmentMono-Regular',
     fontSize: 12,
-    color: '#333333',
+    color: '#000000',
     textAlign: 'center',
     marginTop: 33,
     lineHeight: 22,
@@ -87,12 +87,11 @@ const styles = StyleSheet.create({
   },
   registerText: {
     fontFamily: 'FragmentMono-Regular',
-    fontSize: 12,
-    color: '#333333',
+    fontSize: 10,
+    color: '#000000',
     textAlign: 'center',
   },
   registerLink: {
-    textDecorationLine: 'underline',
     color: '#000000',
   },
   footer: {
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontFamily: 'Montserrat-SemiBold',
-    fontSize: 10,
-    color: '#333333',
+    fontSize: 12,
+    color: '#000000',
   },
 });
