@@ -14,6 +14,11 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-moodcook-moodcookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-moodcook-moodcookTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+<<<<<<< HEAD
+=======
+		0F328DD4041E47FF925FE3C1 /* FragmentMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BECFCE9B3AA94C6CA8E135C1 /* FragmentMono-Regular.ttf */; };
+		4DA4DD5745A14F3ABB6017F8 /* FragmentMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D79F94ED6714D139FC9DD3C /* FragmentMono-Italic.ttf */; };
+>>>>>>> 8fdbe0e (sign up page)
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,11 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = moodcook/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-moodcook-moodcookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moodcook-moodcookTests.release.xcconfig"; path = "Target Support Files/Pods-moodcook-moodcookTests/Pods-moodcook-moodcookTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+<<<<<<< HEAD
+=======
+		BECFCE9B3AA94C6CA8E135C1 /* FragmentMono-Regular.ttf */ = {isa = PBXFileReference; name = "FragmentMono-Regular.ttf"; path = "../src/fonts/FragmentMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4D79F94ED6714D139FC9DD3C /* FragmentMono-Italic.ttf */ = {isa = PBXFileReference; name = "FragmentMono-Italic.ttf"; path = "../src/fonts/FragmentMono-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> 8fdbe0e (sign up page)
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +134,10 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+<<<<<<< HEAD
+=======
+				ED0483D68C434330A1DF3E43 /* Resources */,
+>>>>>>> 8fdbe0e (sign up page)
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -150,6 +164,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+=======
+		ED0483D68C434330A1DF3E43 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				BECFCE9B3AA94C6CA8E135C1 /* FragmentMono-Regular.ttf */,
+				4D79F94ED6714D139FC9DD3C /* FragmentMono-Italic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
+		};
+>>>>>>> 8fdbe0e (sign up page)
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -245,6 +272,11 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+<<<<<<< HEAD
+=======
+				0F328DD4041E47FF925FE3C1 /* FragmentMono-Regular.ttf in Resources */,
+				4DA4DD5745A14F3ABB6017F8 /* FragmentMono-Italic.ttf in Resources */,
+>>>>>>> 8fdbe0e (sign up page)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
