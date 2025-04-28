@@ -9,5 +9,6 @@ import SignIn from './src/pages/SignIn';
 import SignUp from './src/pages/SignUp';
 import Account from './src/pages/Account';
 import ChangePassword from './src/pages/changePassword';
+import recipeDetails from './src/pages/Details';
 
-AppRegistry.registerComponent(appName, () => ChangePassword);
+AppRegistry.registerComponent(appName, () => recipeDetails);
