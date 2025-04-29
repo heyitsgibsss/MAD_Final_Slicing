@@ -27,33 +27,33 @@ const Favorite = () => {
       <View style={styles.imagesContainer}>
         <View style={styles.imageWrapper}>
           <Image
-            source={require('../../assets/sushi.jpg')}
+            source={require('../../assets/supayam.png')}
             style={styles.recipeImage}
           />
           <Image
-            source={require('../../assets/star.png')}
+            source={require('../../assets/supayam.png')}
             style={styles.starIcon}
           />
         </View>
 
         <View style={styles.imageWrapper}>
           <Image
-            source={require('../../assets/icecream.jpg')}
+            source={require('../../assets/supayam.png')}
             style={styles.recipeImage}
           />
           <Image
-            source={require('../../assets/star.png')}
+            source={require('../../assets/supayam.png')}
             style={styles.starIcon}
           />
         </View>
 
         <View style={styles.imageWrapper}>
           <Image
-            source={require('../../assets/pasta.jpg')}
+            source={require('../../assets/supayam.png')}
             style={styles.recipeImage}
           />
           <Image
-            source={require('../../assets/star.png')}
+            source={require('../../assets/supayam.png')}
             style={styles.starIcon}
           />
         </View>

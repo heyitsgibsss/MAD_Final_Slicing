@@ -12,5 +12,9 @@ import ChangePassword from './src/pages/changePassword';
 import recipeDetails from './src/pages/Details';
 import Others from './src/pages/Others';
 import Details from './src/pages/Details';
+import MoodRegister from './src/pages/MoodRegister';
+import AllRecipes from './src/pages/AllRecipes';
+import AllFood from './src/pages/AllFood';
+import Favorite from './src/pages/Favorite';
 
-AppRegistry.registerComponent(appName, () => Details);
+AppRegistry.registerComponent(appName, () => Favorite);
