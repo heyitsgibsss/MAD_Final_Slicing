@@ -37,6 +37,14 @@ const Others = () => {
           source={require('../../assets/cupcakes.jpg')}
           style={styles.recipeImage}
         />
+        <Image
+          source={require('../../assets/yoghurt.jpg')}
+          style={styles.recipeImage}
+        />
+        <Image
+          source={require('../../assets/yoghurt.jpg')}
+          style={styles.recipeImage}
+        />
       </View>
 
       {/* Footer */}
@@ -54,15 +62,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    width: '100%',
+    backgroundColor: '#F4C149',
+    width: '111%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    height: 50, // <== tambah tinggi header
+    paddingHorizontal: 20,
   },
   icon: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 50,
     resizeMode: 'contain',
   },
   headerRight: {
@@ -70,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   greeting: {
-    fontSize: 14,
+    fontSize: 12,
     marginRight: 8,
     fontWeight: '600',
     color: '#000',
@@ -93,7 +104,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: '100%',
-    height: 150,
+    height: 160,
     borderRadius: 10,
     marginBottom: 20,
   },

@@ -11,5 +11,6 @@ import Account from './src/pages/Account';
 import ChangePassword from './src/pages/changePassword';
 import recipeDetails from './src/pages/Details';
 import Others from './src/pages/Others';
+import Details from './src/pages/Details';
 
-AppRegistry.registerComponent(appName, () => Others);
+AppRegistry.registerComponent(appName, () => Details);

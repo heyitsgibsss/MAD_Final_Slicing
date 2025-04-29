@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: '100%',
-    height: 200,
+    height: 330,
   },
   recipeContent: {
     padding: 15,
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   },
   recipeDetails: {
     backgroundColor: '#eee',
+    height: 220,
     padding: 15,
     borderRadius: 10,
   },
