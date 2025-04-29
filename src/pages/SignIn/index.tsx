@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {Button, Gap} from '../../components/atoms/index';
 import {TextInput} from '../../components/molecules/index';
+import Footer from '../../components/molecules/Footer'; // Import Footer
 
 const SignIn = ({navigation}) => {
   return (
@@ -35,9 +36,8 @@ const SignIn = ({navigation}) => {
         </View>
       </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>created by avg</Text>
-      </View>
+      {/* Footer Component */}
+      <Footer />
     </View>
   );
 };
@@ -92,14 +92,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   registerLink: {
-    color: '#000000',
-  },
-  footer: {
-    marginBottom: 5,
-  },
-  footerText: {
-    fontFamily: 'Montserrat-SemiBold',
-    fontSize: 12,
     color: '#000000',
   },
 });

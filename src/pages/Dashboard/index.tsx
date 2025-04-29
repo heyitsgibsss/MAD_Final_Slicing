@@ -7,24 +7,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import Header from '../../components/molecules/Header'; // Sesuaikan path jika perlu
+import Footer from '../../components/molecules/Footer'; // Import Footer component
 
 const Dashboard = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <Image
-          source={require('../../assets/Moodcook.png')} // Icon kiri atas
-          style={styles.icon}
-        />
-        <View style={styles.headerRight}>
-          <Text style={styles.greeting}>hi, angelika</Text>
-          <Image
-            source={require('../../assets/user-icon.png')}
-            style={styles.profileIcon}
-          />
-        </View>
-      </View>
+      <Header username="angelika" />
 
       {/* Mood Section */}
       <Text style={styles.moodText}>angelika,</Text>
@@ -68,7 +58,7 @@ const Dashboard = () => {
       </TouchableOpacity>
 
       {/* Footer */}
-      <Text style={styles.footer}>created by avg</Text>
+      <Footer />
     </ScrollView>
   );
 };
@@ -80,37 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 20,
     alignItems: 'center',
-  },
-  header: {
-    backgroundColor: '#F4C149',
-    width: '111%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-    height: 50,
-    paddingHorizontal: 20,
-  },
-  icon: {
-    width: 40,
-    height: 50,
-    resizeMode: 'contain',
-  },
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  greeting: {
-    fontSize: 12,
-    marginRight: 8,
-    fontWeight: '600',
-    color: '#000',
-  },
-  profileIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#ccc',
+    paddingBottom: 250,
   },
   moodText: {
     fontSize: 16,
@@ -157,10 +117,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#000',
     fontWeight: '500',
-  },
-  footer: {
-    marginTop: 30,
-    fontSize: 12,
-    color: '#000',
   },
 });

@@ -1,10 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 
-const Header = ({title}) => {
+const Header = ({username = 'angelika'}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Image
+        source={require('../../../assets/Moodcook.png')}
+        style={styles.icon}
+      />
+      <View style={styles.headerRight}>
+        <Text style={styles.greeting}>hi, {username}</Text>
+        <Image
+          source={require('../../../assets/user-icon.png')}
+          style={styles.profileIcon}
+        />
+      </View>
     </View>
   );
 };
@@ -13,12 +23,34 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 24,
-    paddingVertical: 38,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F4C149',
+    width: '111%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+    height: 50,
+    paddingHorizontal: 20,
   },
-  title: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: 22,
+  icon: {
+    width: 40,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  greeting: {
+    fontSize: 12,
+    marginRight: 8,
+    fontWeight: '600',
+    color: '#000',
+  },
+  profileIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#ccc',
   },
 });
