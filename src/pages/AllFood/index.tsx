@@ -22,13 +22,13 @@ const AllFood = () => {
       <View style={styles.header}>
         <Image
           source={require('../../assets/Moodcook.png')}
-          style={styles.logo}
+          style={styles.icon}
         />
-        <View style={styles.userSection}>
-          <Text style={styles.username}>hi, angelika</Text>
+        <View style={styles.headerRight}>
+          <Text style={styles.greeting}>hi, angelika</Text>
           <Image
             source={require('../../assets/user-icon.png')}
-            style={styles.userIcon}
+            style={styles.profileIcon}
           />
         </View>
       </View>
@@ -63,33 +63,35 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 50 : 20,
   },
   header: {
-    backgroundColor: '#F9C841',
+    backgroundColor: '#F4C149',
+    width: '100%',
     height: 50,
-    borderRadius: 8,
-    marginHorizontal: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  icon: {
+    width: 40,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
-  logo: {
+  greeting: {
+    fontSize: 12,
+    marginRight: 8,
+    fontWeight: '600',
+    color: '#000',
+  },
+  profileIcon: {
     width: 30,
     height: 30,
-    resizeMode: 'contain',
-  },
-  userSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  username: {
-    fontSize: 14,
-    color: '#000',
-    marginRight: 5,
-  },
-  userIcon: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
+    borderRadius: 15,
+    backgroundColor: '#ccc',
   },
   scrollContainer: {
     paddingHorizontal: 20,

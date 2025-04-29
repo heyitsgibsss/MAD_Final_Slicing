@@ -16,5 +16,6 @@ import MoodRegister from './src/pages/MoodRegister';
 import AllRecipes from './src/pages/AllRecipes';
 import AllFood from './src/pages/AllFood';
 import Favorite from './src/pages/Favorite';
+import Dashboard from './src/pages/Dashboard';
 
-AppRegistry.registerComponent(appName, () => Favorite);
+AppRegistry.registerComponent(appName, () => AllRecipes);

@@ -1,41 +1,53 @@
-// screens/Dashsboard.tsx
 import React from 'react';
-import {StyleSheet, View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 const Dashboard = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.greeting}>hi, angelika</Text>
         <Image
-          source={require('../../assets/user-icon.png')} // icon profile sederhana
-          style={styles.profileIcon}
+          source={require('../../assets/Moodcook.png')} // Icon kiri atas
+          style={styles.icon}
         />
+        <View style={styles.headerRight}>
+          <Text style={styles.greeting}>hi, angelika</Text>
+          <Image
+            source={require('../../assets/user-icon.png')}
+            style={styles.profileIcon}
+          />
+        </View>
       </View>
 
       {/* Mood Section */}
       <Text style={styles.moodText}>angelika,</Text>
-      <Text style={styles.currentMood}>your current mood is happy</Text>--
+      <Text style={styles.currentMood}>your current mood is happy</Text>
 
       {/* Images */}
       <View style={styles.imagesContainer}>
         <Image
-          source={require('../../assets/food1.png')}
+          source={require('../../assets/yoghurt.jpg')}
           style={styles.foodImage}
         />
         <Image
-          source={require('../../assets/food2.png')}
+          source={require('../../assets/saladbuah.jpg')}
           style={styles.foodImage}
         />
       </View>
       <View style={styles.imagesContainer}>
         <Image
-          source={require('../../assets/food3.png')}
+          source={require('../../assets/macaroni.jpg')}
           style={styles.foodImage}
         />
         <Image
-          source={require('../../assets/food4.png')}
+          source={require('../../assets/cupcakes.jpg')}
           style={styles.foodImage}
         />
       </View>
@@ -49,9 +61,10 @@ const Dashboard = () => {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>see other happy recipes</Text>
       </TouchableOpacity>
-
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>see all recipes available [ALL MOOD]</Text>
+        <Text style={styles.buttonText}>
+          see all recipes available [ALL MOOD]
+        </Text>
       </TouchableOpacity>
 
       {/* Footer */}
@@ -69,13 +82,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
+    backgroundColor: '#F4C149',
+    width: '111%',
     flexDirection: 'row',
-    alignSelf: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    height: 50,
+    paddingHorizontal: 20,
+  },
+  icon: {
+    width: 40,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   greeting: {
-    fontSize: 14,
+    fontSize: 12,
     marginRight: 8,
     fontWeight: '600',
     color: '#000',
