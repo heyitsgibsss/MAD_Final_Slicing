@@ -27,12 +27,12 @@ const SignIn = ({navigation}) => {
           <Gap height={24} />
           <Button label="sign in" />
           <Gap height={16} />
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={styles.registerText}>
-              don't have account yet?{' '}
-              <Text style={styles.registerLink}>register here</Text>
-            </Text>
-          </TouchableOpacity>
+          <View style={styles.registerContainer}>
+            <Text style={styles.registerText}>don't have account yet?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Text style={styles.registerLink}> register here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 
@@ -85,6 +85,12 @@ const styles = StyleSheet.create({
   formContainer: {
     width: '100%',
   },
+  registerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
   registerText: {
     fontFamily: 'FragmentMono-Regular',
     fontSize: 10,
@@ -93,5 +99,7 @@ const styles = StyleSheet.create({
   },
   registerLink: {
     color: '#000000',
+    fontSize: 10,
+    fontFamily: 'FragmentMono-Regular',
   },
 });

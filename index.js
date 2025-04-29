@@ -18,4 +18,4 @@ import AllFood from './src/pages/AllFood';
 import Favorite from './src/pages/Favorite';
 import Dashboard from './src/pages/Dashboard';
 
-AppRegistry.registerComponent(appName, () => Dashboard);
+AppRegistry.registerComponent(appName, () => App);
