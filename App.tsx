@@ -2,7 +2,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FlashMessage from 'react-native-flash-message';
-
 import SignIn from './src/pages/SignIn';
 import SignUp from './src/pages/SignUp';
 import Dashboard from './src/pages/Dashboard';
