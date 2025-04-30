@@ -8,19 +8,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import Header from '../../components/molecules/Header'; // Sesuaikan path jika perlu
+import Footer from '../../components/molecules/Footer'; // Import Footer component
 
 const RecipeDetails = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.greeting}>hi, angelika</Text>
-        <Image
-          source={require('../../assets/user-icon.png')}
-          style={styles.profileIcon}
-        />
-      </View>
-
+      <Header />
       {/* Recipe Card */}
       <View style={styles.card}>
         <Image
@@ -60,7 +55,7 @@ const RecipeDetails = () => {
       </View>
 
       {/* Footer */}
-      <Text style={styles.footer}>created by avg</Text>
+      <Footer />
     </ScrollView>
   );
 };
@@ -71,13 +66,23 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 20,
+    paddingBottom: 60,
     alignItems: 'center',
   },
   header: {
+    backgroundColor: '#F4C149',
+    width: '111%',
     flexDirection: 'row',
-    alignSelf: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    height: 50,
+    paddingHorizontal: 20,
+  },
+  icon: {
+    width: 40,
+    height: 50,
+    resizeMode: 'contain',
   },
   greeting: {
     fontSize: 14,

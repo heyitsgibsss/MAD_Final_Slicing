@@ -24,22 +24,23 @@ const Dashboard = ({navigation}) => {
 
       {/* Food Images */}
       <View style={styles.grid}>
-        <Image
-          source={require('../../assets/saladbuah.jpg')}
-          style={styles.foodImage}
-        />
-        <Image
-          source={require('../../assets/yoghurt.jpg')} // ganti sesuai nama file gambar
-          style={styles.foodImage}
-        />
-        <Image
-          source={require('../../assets/macaroni.jpg')} // ganti sesuai nama file gambar
-          style={styles.foodImage}
-        />
-        <Image
-          source={require('../../assets/cupcakes.jpg')} // ganti sesuai nama file gambar
-          style={styles.foodImage}
-        />
+        {[
+          require('../../assets/saladbuah.jpg'),
+          require('../../assets/yoghurt.jpg'),
+          require('../../assets/macaroni.jpg'),
+          require('../../assets/cupcakes.jpg'),
+        ].map((image, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate('Details')}
+            style={styles.foodImage}>
+            <Image
+              source={image}
+              style={styles.imageInside}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* Quote */}
@@ -100,9 +101,15 @@ const styles = StyleSheet.create({
   },
   foodImage: {
     width: '48%',
-    aspectRatio: 1, // membuat gambar kotak
+    aspectRatio: 1,
     borderRadius: 10,
+    overflow: 'hidden',
     marginBottom: 12,
+  },
+  imageInside: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
   },
   quote: {
     fontStyle: 'italic',
