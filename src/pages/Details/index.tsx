@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const recipeDetails = () => {
+const RecipeDetails = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
@@ -65,7 +65,7 @@ const recipeDetails = () => {
   );
 };
 
-export default recipeDetails;
+export default RecipeDetails;
 
 const styles = StyleSheet.create({
   container: {

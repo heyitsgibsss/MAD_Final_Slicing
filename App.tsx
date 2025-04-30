@@ -8,7 +8,7 @@ import SignUp from './src/pages/SignUp';
 import Dashboard from './src/pages/Dashboard';
 import Account from './src/pages/Account';
 import AllFood from './src/pages/AllFood';
-import ChangePassword from './src/pages/changePassword';
+import ChangePassword from './src/pages/ChangePassword';
 import Details from './src/pages/Details';
 import Favorite from './src/pages/Favorite';
 import MoodRegister from './src/pages/MoodRegister';
