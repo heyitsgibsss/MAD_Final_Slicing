@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
 import Header from '../../components/molecules/Header';
+import Footer from '../../components/molecules/Footer';
 
 const AllFood = () => {
   const recipes = [
@@ -27,7 +28,7 @@ const AllFood = () => {
       ))}
 
       {/* Footer */}
-      <Text style={styles.footer}>created by avg</Text>
+      <Footer />
     </ScrollView>
   );
 };
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 20,
     paddingHorizontal: 20,
+    paddingBottom: 60,
     alignItems: 'center',
   },
   title: {

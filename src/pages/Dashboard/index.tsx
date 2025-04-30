@@ -22,11 +22,36 @@ const Dashboard = ({navigation}) => {
         <Text style={styles.currentMood}>your current mood is happy</Text>
       </View>
 
-      {/* Food Images */}
+      {/* Food Images - Top Grid */}
       <View style={styles.grid}>
         {[
           require('../../assets/saladbuah.jpg'),
           require('../../assets/yoghurt.jpg'),
+        ].map((image, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate('Details')}
+            style={styles.foodImage}>
+            <Image
+              source={image}
+              style={styles.imageInside}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Quote */}
+      <View style={styles.quoteContainer}>
+        <Text style={styles.quote}>
+          "When life gets messy, I stir, simmer, and season my way back to
+          peace."
+        </Text>
+      </View>
+
+      {/* Food Images - Bottom Grid */}
+      <View style={styles.grid}>
+        {[
           require('../../assets/macaroni.jpg'),
           require('../../assets/cupcakes.jpg'),
         ].map((image, index) => (
@@ -43,19 +68,14 @@ const Dashboard = ({navigation}) => {
         ))}
       </View>
 
-      {/* Quote */}
-      <Text style={styles.quote}>
-        "When life gets messy, I stir, simmer, and season my way back to peace."
-      </Text>
-
       {/* Buttons */}
       <TouchableOpacity
-        style={styles.button}
+        style={styles.button1}
         onPress={() => navigation.navigate('Others')}>
         <Text style={styles.buttonText}>see other happy recipes</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.button2}
         onPress={() => navigation.navigate('AllFood')}>
         <Text style={styles.buttonText}>
           see all recipes available [ALL MOOD]
@@ -74,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     paddingHorizontal: 20,
-    paddingBottom: 160,
+    paddingBottom: 70,
     alignItems: 'center',
   },
   textContainer: {
@@ -97,41 +117,55 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   foodImage: {
     width: '48%',
     aspectRatio: 1,
     borderRadius: 10,
     overflow: 'hidden',
-    marginBottom: 12,
   },
   imageInside: {
     width: '100%',
     height: '100%',
     borderRadius: 10,
   },
+  quoteContainer: {
+    width: '100%',
+    marginVertical: 10,
+    alignItems: 'center',
+  },
   quote: {
     fontStyle: 'italic',
-    fontSize: 13,
+    fontSize: 16,
     color: '#444',
-    textAlign: 'center',
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  button: {
-    backgroundColor: '#F4C542',
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    width: '100%',
+    textAlign: 'left',
     marginBottom: 10,
   },
+  button1: {
+    backgroundColor: '#F4C542',
+    paddingVertical: 12,
+    marginTop: 20,
+    borderRadius: 5,
+    width: 195,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+  },
+  button2: {
+    backgroundColor: '#F4C542',
+    paddingVertical: 12,
+    marginTop: 10,
+    borderRadius: 5,
+    width: 286,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+  },
   buttonText: {
-    textAlign: 'center',
+    textAlign: 'left',
+    fontFamily: 'OpenSans',
     color: '#000',
-    fontWeight: '600',
-    fontSize: 14,
+    fontSize: 15.5,
+    marginLeft: 10,
   },
   footer: {
     fontSize: 12,
