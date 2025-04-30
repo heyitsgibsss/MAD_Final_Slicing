@@ -25,14 +25,16 @@ const SignUp = ({navigation}) => {
         <TextInput label="confirm password" secureTextEntry />
         <Gap height={2} />
 
-        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.loginText}>
-            already have an account?{' '}
-            <Text style={styles.loginLink}>login here</Text>
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.loginContainer}>
+          <Text style={styles.loginText}>already have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <Text style={styles.loginLink}> login here</Text>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.registerButton}>
+        <TouchableOpacity
+          style={styles.registerButton}
+          onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.registerButtonText}>register</Text>
         </TouchableOpacity>
       </View>
@@ -83,6 +85,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
   },
+  loginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  loginLink: {
+    fontFamily: 'FragmentMono-Regular',
+    fontSize: 10,
+    color: '#000000',
+  },
+
   registerButton: {
     marginTop: 6,
     width: 285,

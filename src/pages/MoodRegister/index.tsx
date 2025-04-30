@@ -7,6 +7,7 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
+import Header from '../../components/molecules/Header';
 
 const moods = [
   {label: 'happy', emoji: '😊'},
@@ -23,17 +24,7 @@ const MoodRegister = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Image
-          source={require('../../assets/Moodcook.png')}
-          style={styles.logo}
-        />
-        <View style={styles.userSection}>
-          <Text style={styles.username}>hi, angelika</Text>
-          <Image
-            source={require('../../assets/user-icon.png')}
-            style={styles.userIcon}
-          />
-        </View>
+        <Header username="angelika" />
       </View>
 
       {/* Title */}

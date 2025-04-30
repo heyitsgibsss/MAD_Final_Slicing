@@ -1,7 +1,10 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 const Header = ({username = 'angelika'}) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Image
@@ -10,10 +13,12 @@ const Header = ({username = 'angelika'}) => {
       />
       <View style={styles.headerRight}>
         <Text style={styles.greeting}>hi, {username}</Text>
-        <Image
-          source={require('../../../assets/user-icon.png')}
-          style={styles.profileIcon}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+          <Image
+            source={require('../../../assets/user-icon.png')}
+            style={styles.profileIcon}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

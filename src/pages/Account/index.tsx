@@ -7,11 +7,31 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const Account = ({navigation}) => {
   const [currentMood, setCurrentMood] = useState('happy');
+  const [photo, setPhoto] = useState(require('../../assets/user-icon.png'));
+  const [photoBased64, setPhotoBased64] = useState('');
   const email = 'angelika@example.com'; // contoh email
   const name = 'angelika';
+
+  const getImage = async () => {
+    const result = await launchImageLibrary({
+      maxHeight: 100,
+      maxWidth: 100,
+      quality: 0.5,
+      includeBase64: true,
+      mediaType: 'photo',
+    });
+
+    if (!result.didCancel && result.assets && result.assets.length > 0) {
+      const asset = result.assets[0];
+      const base64 = `data:${asset.type};base64,${asset.base64}`;
+      setPhoto({uri: base64});
+      setPhotoBased64(base64);
+    }
+  };
 
   return (
     <View style={styles.pageContainer}>
@@ -21,19 +41,15 @@ const Account = ({navigation}) => {
           style={styles.logo}
         />
 
-        <View style={styles.profileCircle}>
-          <Text style={styles.profileInitial}>A</Text>
-        </View>
+        <TouchableOpacity onPress={getImage}>
+          <Image source={photo} style={styles.profileImage} />
+        </TouchableOpacity>
 
         <Text style={styles.greetingText}>hi, {name}!</Text>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>email:</Text>
-          <TextInput
-            style={styles.input}
-            value={email}
-            editable={false} // email tidak bisa diubah
-          />
+          <TextInput style={styles.input} value={email} editable={false} />
         </View>
 
         <View style={styles.inputGroup}>
@@ -41,7 +57,7 @@ const Account = ({navigation}) => {
           <TextInput
             style={styles.input}
             value={currentMood}
-            onChangeText={setCurrentMood} // user bisa ketik mood sendiri
+            onChangeText={setCurrentMood}
           />
         </View>
 
@@ -92,19 +108,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 16,
   },
-  profileCircle: {
+  profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#333333',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#E0E0E0',
     marginBottom: 12,
-  },
-  profileInitial: {
-    color: '#ffffff',
-    fontSize: 32,
-    fontWeight: 'bold',
   },
   greetingText: {
     fontSize: 16,

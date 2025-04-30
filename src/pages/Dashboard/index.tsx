@@ -10,7 +10,7 @@ import {
 import Header from '../../components/molecules/Header'; // Sesuaikan path jika perlu
 import Footer from '../../components/molecules/Footer'; // Import Footer component
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
@@ -48,10 +48,18 @@ const Dashboard = () => {
       </Text>
 
       {/* Buttons */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('Others');
+        }}>
         <Text style={styles.buttonText}>see other happy recipes</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('AllFood');
+        }}>
         <Text style={styles.buttonText}>
           see all recipes available [ALL MOOD]
         </Text>

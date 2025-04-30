@@ -1,24 +1,12 @@
 // screens/Dashboard.tsx
 import React from 'react';
 import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
-
+import Header from '../../components/molecules/Header';
 const Others = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <Image
-          source={require('../../assets/Moodcook.png')} // Icon kecil di kiri atas
-          style={styles.icon}
-        />
-        <View style={styles.headerRight}>
-          <Text style={styles.greeting}>hi, angelika</Text>
-          <Image
-            source={require('../../assets/user-icon.png')} // Icon profile user
-            style={styles.profileIcon}
-          />
-        </View>
-      </View>
+      <Header />
 
       {/* Title */}
       <Text style={styles.title}>OTHER HAPPY RECIPES</Text>
