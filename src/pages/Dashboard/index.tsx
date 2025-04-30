@@ -7,8 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import Header from '../../components/molecules/Header'; // Sesuaikan path jika perlu
-import Footer from '../../components/molecules/Footer'; // Import Footer component
+import Header from '../../components/molecules/Header';
+import Footer from '../../components/molecules/Footer';
 
 const Dashboard = ({navigation}) => {
   return (
@@ -16,28 +16,28 @@ const Dashboard = ({navigation}) => {
       {/* Header */}
       <Header username="angelika" />
 
-      {/* Mood Section */}
-      <Text style={styles.moodText}>angelika,</Text>
-      <Text style={styles.currentMood}>your current mood is happy</Text>
+      {/* Greeting */}
+      <View style={styles.textContainer}>
+        <Text style={styles.moodText}>angelika,</Text>
+        <Text style={styles.currentMood}>your current mood is happy</Text>
+      </View>
 
-      {/* Images */}
-      <View style={styles.imagesContainer}>
-        <Image
-          source={require('../../assets/yoghurt.jpg')}
-          style={styles.foodImage}
-        />
+      {/* Food Images */}
+      <View style={styles.grid}>
         <Image
           source={require('../../assets/saladbuah.jpg')}
           style={styles.foodImage}
         />
-      </View>
-      <View style={styles.imagesContainer}>
         <Image
-          source={require('../../assets/macaroni.jpg')}
+          source={require('../../assets/yoghurt.jpg')} // ganti sesuai nama file gambar
           style={styles.foodImage}
         />
         <Image
-          source={require('../../assets/cupcakes.jpg')}
+          source={require('../../assets/macaroni.jpg')} // ganti sesuai nama file gambar
+          style={styles.foodImage}
+        />
+        <Image
+          source={require('../../assets/cupcakes.jpg')} // ganti sesuai nama file gambar
           style={styles.foodImage}
         />
       </View>
@@ -50,16 +50,12 @@ const Dashboard = ({navigation}) => {
       {/* Buttons */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          navigation.navigate('Others');
-        }}>
+        onPress={() => navigation.navigate('Others')}>
         <Text style={styles.buttonText}>see other happy recipes</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          navigation.navigate('AllFood');
-        }}>
+        onPress={() => navigation.navigate('AllFood')}>
         <Text style={styles.buttonText}>
           see all recipes available [ALL MOOD]
         </Text>
@@ -76,54 +72,64 @@ export default Dashboard;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 160,
     alignItems: 'center',
-    paddingBottom: 250,
+  },
+  textContainer: {
+    alignSelf: 'flex-start',
+    marginVertical: 15,
   },
   moodText: {
     fontSize: 16,
-    fontWeight: '500',
-    alignSelf: 'flex-start',
+    fontWeight: '400',
     color: '#000',
+    textTransform: 'lowercase',
   },
   currentMood: {
     fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 20,
-    alignSelf: 'flex-start',
+    fontWeight: '400',
     color: '#000',
   },
-  imagesContainer: {
+  grid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginBottom: 10,
     width: '100%',
+    marginBottom: 20,
   },
   foodImage: {
     width: '48%',
-    height: 130,
+    aspectRatio: 1, // membuat gambar kotak
     borderRadius: 10,
+    marginBottom: 12,
   },
   quote: {
     fontStyle: 'italic',
-    fontSize: 12,
+    fontSize: 13,
+    color: '#444',
     textAlign: 'center',
-    marginVertical: 20,
-    color: '#555',
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#fff',
-    borderColor: '#000',
-    borderWidth: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: '#F4C542',
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     borderRadius: 5,
-    marginVertical: 5,
     width: '100%',
+    marginBottom: 10,
   },
   buttonText: {
     textAlign: 'center',
     color: '#000',
-    fontWeight: '500',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  footer: {
+    fontSize: 12,
+    color: '#000',
+    marginTop: 20,
+    textAlign: 'center',
   },
 });
