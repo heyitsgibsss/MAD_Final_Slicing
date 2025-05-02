@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     paddingTop: 20,
+    paddingBottom: 140,
     paddingHorizontal: 20,
     paddingBottom: 60,
     alignItems: 'center',
