@@ -16,5 +16,6 @@ import MoodRegister from './src/pages/MoodRegister';
 import AllFood from './src/pages/AllFood';
 import Favorite from './src/pages/Favorite';
 import Dashboard from './src/pages/Dashboard';
+import SplashScreen from './src/pages/SplashScreen';
 
-AppRegistry.registerComponent(appName, () => MoodRegister);
+AppRegistry.registerComponent(appName, () => App);
