@@ -69,7 +69,9 @@ const Account = ({navigation}) => {
           <TouchableOpacity style={styles.buttonDark}>
             <Text style={styles.buttonTextDark}>log out</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonDark}>
+          <TouchableOpacity
+            style={styles.buttonDark}
+            onPress={() => navigation.navigate('ChangePassword')}>
             <Text style={styles.buttonTextDark}>change password</Text>
           </TouchableOpacity>
         </View>
