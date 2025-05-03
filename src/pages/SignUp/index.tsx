@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 12,
     borderRadius: 10,
-    color:
   },
   registerButtonText: {
     textAlign: 'center',

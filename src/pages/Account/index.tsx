@@ -61,7 +61,9 @@ const Account = ({navigation}) => {
           />
         </View>
 
-        <TouchableOpacity style={styles.buttonWhite}>
+        <TouchableOpacity
+          style={styles.buttonWhite}
+          onPress={() => navigation.navigate('Favorite')}>
           <Text style={styles.buttonTextWhite}>my favorite recipes</Text>
         </TouchableOpacity>
 

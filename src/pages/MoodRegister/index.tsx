@@ -17,7 +17,7 @@ const moods = [
   {label: 'angry', emoji: '😡'},
 ];
 
-const MoodRegister = () => {
+const MoodRegister = (navigation) => {
   const [selectedMood, setSelectedMood] = useState(null);
 
   return (

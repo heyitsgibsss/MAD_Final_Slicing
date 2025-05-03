@@ -1,24 +1,14 @@
 // screens/Favorite.tsx
 import React from 'react';
 import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
+import Footer from '../../components/molecules/Footer';
+import Header from '../../components/molecules/Header';
 
 const Favorite = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <Image
-          source={require('../../assets/Moodcook.png')}
-          style={styles.icon}
-        />
-        <View style={styles.headerRight}>
-          <Text style={styles.greeting}>hi, angelika</Text>
-          <Image
-            source={require('../../assets/user-icon.png')}
-            style={styles.profileIcon}
-          />
-        </View>
-      </View>
+      <Header />
 
       {/* Title */}
       <Text style={styles.title}>MY FAVORITE</Text>
@@ -31,7 +21,7 @@ const Favorite = () => {
             style={styles.recipeImage}
           />
           <Image
-            source={require('../../assets/supayam.png')}
+            source={require('../../assets/bookmark.png')}
             style={styles.starIcon}
           />
         </View>
@@ -42,7 +32,7 @@ const Favorite = () => {
             style={styles.recipeImage}
           />
           <Image
-            source={require('../../assets/supayam.png')}
+            source={require('../../assets/bookmark.png')}
             style={styles.starIcon}
           />
         </View>
@@ -53,14 +43,14 @@ const Favorite = () => {
             style={styles.recipeImage}
           />
           <Image
-            source={require('../../assets/supayam.png')}
+            source={require('../../assets/bookmark.png')}
             style={styles.starIcon}
           />
         </View>
       </View>
 
       {/* Footer */}
-      <Text style={styles.footer}>created by avg</Text>
+      <Footer />
     </ScrollView>
   );
 };
@@ -71,6 +61,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 20,
+    paddingBottom: 190,
     alignItems: 'center',
   },
   header: {

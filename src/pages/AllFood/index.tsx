@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 140,
     paddingHorizontal: 20,
-    paddingBottom: 140,
     alignItems: 'center',
   },
   title: {
