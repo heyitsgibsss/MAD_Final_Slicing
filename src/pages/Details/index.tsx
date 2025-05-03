@@ -66,18 +66,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 20,
-    paddingBottom: 60,
+    paddingBottom: 140,
     alignItems: 'center',
-  },
-  header: {
-    backgroundColor: '#F4C149',
-    width: '111%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-    height: 50,
-    paddingHorizontal: 20,
   },
   icon: {
     width: 40,
@@ -98,6 +88,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
+    height: '102%',
     backgroundColor: '#fff',
     borderRadius: 10,
     overflow: 'hidden',
@@ -136,7 +127,7 @@ const styles = StyleSheet.create({
   },
   recipeDetails: {
     backgroundColor: '#eee',
-    height: 220,
+    height: '62%',
     padding: 15,
     borderRadius: 10,
   },
