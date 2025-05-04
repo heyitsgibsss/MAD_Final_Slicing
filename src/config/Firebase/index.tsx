@@ -1,5 +1,7 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from 'firebase/app';
+import {initializeAuth, getReactNativePersistence} from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,8 +13,11 @@ const firebaseConfig = {
   storageBucket: 'demomoodcook.firebasestorage.app',
   messagingSenderId: '1040443020156',
   appId: '1:1040443020156:web:a37e5887a8b96f5bcccaf9',
+  databaseURL: 'https://demomoodcook-default-rtdb.firebaseio.com/',
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export default app;
+initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+});

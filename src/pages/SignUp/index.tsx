@@ -1,9 +1,53 @@
 // screens/SignUp.tsx
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import TextInput from '../../components/molecules/TextInput/signupindex';
 import {Gap} from '../../components/atoms/index';
+import Button from '../../components/atoms/Button';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {getDatabase, ref, set} from 'firebase/database';
+import {showMessage} from 'react-native-flash-message';
+import Footer from '../../components/molecules/Footer';
+
 const SignUp = ({navigation}) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const onRegister = () => {
+    if (password !== confirmPassword) {
+      showMessage({
+        message: 'Passwords do not match',
+        type: 'danger',
+      });
+      return;
+    }
+
+    const auth = getAuth();
+    const db = getDatabase();
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        set(ref(db, 'users/' + user.uid), {
+          email: email,
+        });
+        showMessage({
+          message: 'Registration success, please Log in',
+          type: 'success',
+        });
+        navigation.navigate('SignIn');
+        console.log(user);
+      })
+      .catch(error => {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      });
+  };
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.logoContainer}>
@@ -16,13 +60,26 @@ const SignUp = ({navigation}) => {
       <Text style={styles.createAccount}>CREATE AN ACCOUNT</Text>
 
       <View style={styles.formContainer}>
-        <TextInput label="name" />
+        <TextInput label="name" onChangeText={setName} />
         <Gap height={2} />
-        <TextInput label="email" keyboardType="email-address" />
+        <TextInput
+          label="email"
+          placeholder="email"
+          value={email}
+          onChangeText={e => setEmail(e)}
+        />
         <Gap height={2} />
-        <TextInput label="password" secureTextEntry />
+        <TextInput
+          label="password"
+          secureTextEntry
+          onChangeText={setPassword}
+        />
         <Gap height={2} />
-        <TextInput label="confirm password" secureTextEntry />
+        <TextInput
+          label="confirm password"
+          secureTextEntry
+          onChangeText={setConfirmPassword}
+        />
         <Gap height={2} />
 
         <View style={styles.loginContainer}>
@@ -32,14 +89,10 @@ const SignUp = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity
-          style={styles.registerButton}
-          onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.registerButtonText}>register</Text>
-        </TouchableOpacity>
+        <Button label="register" onPress={onRegister} />
       </View>
 
-      <Text style={styles.footerText}>created by avg</Text>
+      <Footer />
     </View>
   );
 };
@@ -53,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     paddingTop: 60,
-    paddingBottom: 20,
+    paddingBottom: 220,
   },
   logoContainer: {
     alignItems: 'center',
@@ -96,7 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#000000',
   },
-
   registerButton: {
     marginTop: 6,
     width: 285,

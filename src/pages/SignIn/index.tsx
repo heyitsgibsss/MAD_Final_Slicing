@@ -1,10 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {Button, Gap} from '../../components/atoms/index';
 import {TextInput} from '../../components/molecules/index';
 import Footer from '../../components/molecules/Footer'; // Import Footer
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {showMessage} from 'react-native-flash-message';
 
 const SignIn = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        navigation.navigate('Dashboard', {uid: user.uid});
+        console.log(user);
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        showMessage({
+          message: errorMessage,
+          type: 'danger',
+        });
+      });
+  };
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.contentContainer}>
@@ -21,14 +43,19 @@ const SignIn = ({navigation}) => {
         </View>
 
         <View style={styles.formContainer}>
-          <TextInput placeholder="email/username" />
-          <Gap height={1} />
-          <TextInput placeholder="password" secureTextEntry />
-          <Gap height={24} />
-          <Button
-            label="sign in"
-            onPress={() => navigation.navigate('Dashboard')}
+          <TextInput
+            placeholder="email"
+            value={email}
+            onChangeText={e => setEmail(e)}
           />
+          <Gap height={1} />
+          <TextInput
+            placeholder="password"
+            secureTextEntry
+            onChangeText={setPassword}
+          />
+          <Gap height={24} />
+          <Button label="sign in" onPress={onSubmit} />
           <Gap height={16} />
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>don't have account yet?</Text>
