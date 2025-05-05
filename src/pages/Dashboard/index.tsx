@@ -9,24 +9,23 @@ import {
 } from 'react-native';
 import Header from '../../components/molecules/Header';
 import Footer from '../../components/molecules/Footer';
+import {Gap} from '../../components/atoms/index';
 
 const Dashboard = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
       <Header username="angelika" />
 
-      {/* Greeting */}
       <View style={styles.textContainer}>
         <Text style={styles.moodText}>angelika,</Text>
         <Text style={styles.currentMood}>your current mood is happy</Text>
       </View>
+      <Gap height={20} />
 
-      {/* Food Images - Top Grid */}
       <View style={styles.grid}>
         {[
           require('../../assets/saladbuah.jpg'),
-          require('../../assets/yoghurt.jpg'),
+          require('../../assets/sushi.png'),
         ].map((image, index) => (
           <TouchableOpacity
             key={index}
@@ -41,7 +40,6 @@ const Dashboard = ({navigation}) => {
         ))}
       </View>
 
-      {/* Quote */}
       <View style={styles.quoteContainer}>
         <Text style={styles.quote}>
           "When life gets messy, I stir, simmer, and season my way back to
@@ -49,11 +47,10 @@ const Dashboard = ({navigation}) => {
         </Text>
       </View>
 
-      {/* Food Images - Bottom Grid */}
       <View style={styles.grid}>
         {[
-          require('../../assets/macaroni.jpg'),
-          require('../../assets/cupcakes.jpg'),
+          require('../../assets/pastatomat.png'),
+          require('../../assets/icecream.png'),
         ].map((image, index) => (
           <TouchableOpacity
             key={index}
@@ -67,8 +64,8 @@ const Dashboard = ({navigation}) => {
           </TouchableOpacity>
         ))}
       </View>
+      <Gap height={20} />
 
-      {/* Buttons */}
       <TouchableOpacity
         style={styles.button1}
         onPress={() => navigation.navigate('Others')}>
@@ -82,7 +79,6 @@ const Dashboard = ({navigation}) => {
         </Text>
       </TouchableOpacity>
 
-      {/* Footer */}
       <Footer />
     </ScrollView>
   );
@@ -94,7 +90,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     paddingHorizontal: 20,
-    paddingBottom: 135,
+    paddingTop: 20,
+    paddingBottom: 60,
     alignItems: 'center',
   },
   textContainer: {
@@ -150,6 +147,8 @@ const styles = StyleSheet.create({
     width: 195,
     marginBottom: 10,
     alignSelf: 'stretch',
+    borderColor: '#F3891B',
+    borderWidth: 2,
   },
   button2: {
     backgroundColor: '#F4C542',
@@ -159,6 +158,8 @@ const styles = StyleSheet.create({
     width: 286,
     marginBottom: 10,
     alignSelf: 'stretch',
+    borderColor: '#F3891B',
+    borderWidth: 2,
   },
   buttonText: {
     textAlign: 'left',
@@ -166,11 +167,5 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 15.5,
     marginLeft: 10,
-  },
-  footer: {
-    fontSize: 12,
-    color: '#000',
-    marginTop: 20,
-    textAlign: 'center',
   },
 });

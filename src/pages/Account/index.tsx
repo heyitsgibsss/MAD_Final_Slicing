@@ -8,6 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 
 const Account = ({navigation}) => {
   const [currentMood, setCurrentMood] = useState('happy');
@@ -25,11 +26,40 @@ const Account = ({navigation}) => {
       mediaType: 'photo',
     });
 
-    if (!result.didCancel && result.assets && result.assets.length > 0) {
+    if (result.didCancel) {
+      showMessage({
+        message: 'Foto tidak jadi dipilih.',
+        type: 'warning',
+      });
+    } else if (result.errorCode) {
+      showMessage({
+        message: `Terjadi kesalahan: ${result.errorMessage}`,
+        type: 'danger',
+      });
+    } else if (result.assets && result.assets.length > 0) {
       const asset = result.assets[0];
+
+      if (!asset.base64 || !asset.type?.startsWith('image/')) {
+        showMessage({
+          message: 'File yang dipilih bukan gambar yang valid.',
+          type: 'danger',
+        });
+        return;
+      }
+
       const base64 = `data:${asset.type};base64,${asset.base64}`;
       setPhoto({uri: base64});
       setPhotoBased64(base64);
+
+      showMessage({
+        message: 'Foto profil berhasil diperbarui!',
+        type: 'success',
+      });
+    } else {
+      showMessage({
+        message: 'Gagal mengambil gambar.',
+        type: 'danger',
+      });
     }
   };
 

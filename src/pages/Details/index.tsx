@@ -14,9 +14,8 @@ import Footer from '../../components/molecules/Footer'; // Import Footer compone
 const RecipeDetails = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
       <Header />
-      {/* Recipe Card */}
+
       <View style={styles.card}>
         <Image
           source={require('../../assets/food1.jpg')}
@@ -29,7 +28,6 @@ const RecipeDetails = () => {
           </Text>
           <Text style={styles.recipeSubtitle}>A simple and flavorful dish</Text>
 
-          {/* Bookmark Icon */}
           <TouchableOpacity style={styles.bookmarkIcon}>
             <Image
               source={require('../../assets/bookmark.png')}
@@ -37,7 +35,6 @@ const RecipeDetails = () => {
             />
           </TouchableOpacity>
 
-          {/* Ingredients and Instructions */}
           <View style={styles.recipeDetails}>
             <Text style={styles.sectionTitle}>Ingredients:</Text>
             <Text style={styles.recipeText}>
@@ -54,7 +51,6 @@ const RecipeDetails = () => {
         </View>
       </View>
 
-      {/* Footer */}
       <Footer />
     </ScrollView>
   );
@@ -66,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 20,
-    paddingBottom: 140,
+    paddingBottom: 100,
     alignItems: 'center',
   },
   icon: {
@@ -88,7 +84,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    height: '102%',
+    height: '95%',
     backgroundColor: '#fff',
     borderRadius: 10,
     overflow: 'hidden',
@@ -126,25 +122,27 @@ const styles = StyleSheet.create({
     height: 24,
   },
   recipeDetails: {
-    backgroundColor: '#eee',
-    height: '62%',
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: '#F4C149',
+    height: '60%',
+    padding: 10,
+    borderRadius: 15,
   },
   sectionTitle: {
     fontWeight: '700',
+    fontSize: 18,
     marginTop: 10,
     marginBottom: 5,
     color: '#000',
+    marginInlineStart: 10,
+    marginInlineEnd: 10,
   },
   recipeText: {
     color: '#333',
-    fontSize: 14,
+    fontSize: 18,
     lineHeight: 20,
-  },
-  footer: {
-    marginTop: 20,
-    fontSize: 12,
-    color: '#000',
+    marginInlineStart: 20,
+    marginInlineEnd: 20,
+    marginBlockStart: 5,
+    marginBlockEnd: 5,
   },
 });
