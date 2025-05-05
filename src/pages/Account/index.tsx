@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Picker} from '@react-native-picker/picker';
 
 const Account = ({navigation}) => {
   const [currentMood, setCurrentMood] = useState('happy');
@@ -84,11 +85,18 @@ const Account = ({navigation}) => {
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>current mood:</Text>
-          <TextInput
-            style={styles.input}
-            value={currentMood}
-            onChangeText={setCurrentMood}
-          />
+          <View style={styles.pickerWrapper}>
+            <Picker
+              selectedValue={currentMood}
+              onValueChange={itemValue => setCurrentMood(itemValue)}
+              style={styles.picker}>
+              <Picker.Item label="Happy" value="happy" />
+              <Picker.Item label="Sad" value="sad" />
+              <Picker.Item label="Excited" value="excited" />
+              <Picker.Item label="Angry" value="angry" />
+              <Picker.Item label="Relaxed" value="relaxed" />
+            </Picker>
+          </View>
         </View>
 
         <TouchableOpacity
@@ -102,13 +110,13 @@ const Account = ({navigation}) => {
             <Text style={styles.buttonTextDark}>log out</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.buttonDark}
+            style={styles.buttonDark1}
             onPress={() => navigation.navigate('ChangePassword')}>
-            <Text style={styles.buttonTextDark}>change password</Text>
+            <Text style={styles.buttonTextDark1}>change password</Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.buttonWhite}>
+        <TouchableOpacity style={styles.buttonWhite1}>
           <Text style={styles.buttonTextWhite}>delete my account</Text>
         </TouchableOpacity>
       </View>
@@ -184,6 +192,17 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  buttonWhite1: {
+    backgroundColor: '#B00000',
+    borderColor: '#cccccc',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    marginTop: 12,
+    width: '100%',
+    alignItems: 'center',
+  },
   buttonTextWhite: {
     color: '#000000',
     fontSize: 14,
@@ -202,8 +221,20 @@ const styles = StyleSheet.create({
     width: '48%',
     alignItems: 'center',
   },
+  buttonDark1: {
+    backgroundColor: '#69B927',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    width: '48%',
+    alignItems: 'center',
+  },
   buttonTextDark: {
     color: '#ffffff',
+    fontSize: 14,
+  },
+  buttonTextDark1: {
+    color: '#131313',
     fontSize: 14,
   },
   footer: {

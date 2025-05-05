@@ -18,4 +18,4 @@ import Favorite from './src/pages/Favorite';
 import Dashboard from './src/pages/Dashboard';
 import SplashScreen from './src/pages/SplashScreen';
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => Account);
