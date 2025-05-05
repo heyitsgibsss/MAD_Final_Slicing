@@ -32,6 +32,7 @@ const SignUp = ({navigation}) => {
         const user = userCredential.user;
         set(ref(db, 'users/' + user.uid), {
           email: email,
+          name: name,
         });
         showMessage({
           message: 'Registration success, please Log in',

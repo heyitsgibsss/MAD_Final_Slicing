@@ -2,13 +2,16 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {Button, Gap} from '../../components/atoms/index';
 import {TextInput} from '../../components/molecules/index';
-import Footer from '../../components/molecules/Footer'; // Import Footer
+import Eye from '../../assets/icons/eye.svg';
+import EyeOff from '../../assets/icons/eyeclose.svg';
+import Footer from '../../components/molecules/Footer';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import {showMessage} from 'react-native-flash-message';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [secureText, setSecureText] = useState(true);
 
   const onSubmit = () => {
     const auth = getAuth();
