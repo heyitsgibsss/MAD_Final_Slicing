@@ -231,9 +231,9 @@ const Account = ({navigation, route}) => {
               style={styles.picker}>
               <Picker.Item label="happy" value="happy" />
               <Picker.Item label="sad" value="sad" />
-              <Picker.Item label="excited" value="excited" />
+              <Picker.Item label="bored" value="bored" />
+              <Picker.Item label="stressed" value="stressed" />
               <Picker.Item label="angry" value="angry" />
-              <Picker.Item label="relaxed" value="relaxed" />
             </Picker>
           </View>
         </View>

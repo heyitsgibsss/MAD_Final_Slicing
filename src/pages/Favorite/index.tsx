@@ -13,6 +13,30 @@ import {Gap} from '../../components/atoms/index';
 import {getDatabase, ref, onValue, remove} from 'firebase/database';
 import {getAuth} from 'firebase/auth';
 
+// Mapping nama file gambar lokal ke require()
+const imageMap = {
+  'chocolatelavacake.jpeg': require('../../assets/recipes/chocolatelavacake.jpeg'),
+  'avocadotoast.jpeg': require('../../assets/recipes/avocadotoast.jpeg'),
+  'springrolls.jpeg': require('../../assets/recipes/springrolls.jpeg'),
+  'lavenderhoneymilk.jpeg': require('../../assets/recipes/lavenderhoneymilk.jpeg'),
+  'oatmeal.jpeg': require('../../assets/recipes/oatmeal.jpeg'),
+  'rainbowsmoothies.jpeg': require('../../assets/recipes/rainbowsmoothies.jpeg'),
+  'pastabake.jpeg': require('../../assets/recipes/pastabake.jpeg'),
+  'fruitpancake.jpeg': require('../../assets/recipes/fruitpancake.jpeg'),
+  'chickensoup.jpeg': require('../../assets/recipes/chickensoup.jpeg'),
+  'mashedpotato.jpeg': require('../../assets/recipes/mashedpotato.jpeg'),
+  'hotchoco.jpeg': require('../../assets/recipes/hotchoco.jpeg'),
+  'mushroomrisotto.jpeg': require('../../assets/recipes/mushroomrisotto.jpeg'),
+  'greentea.jpeg': require('../../assets/recipes/greentea.jpeg'),
+  'pizza.jpeg': require('../../assets/recipes/pizza.jpeg'),
+  'fruitskewers.jpeg': require('../../assets/recipes/fruitskewers.jpeg'),
+  'sushiburito.jpeg': require('../../assets/recipes/sushiburito.jpeg'),
+  'ramen.jpeg': require('../../assets/recipes/ramen.jpeg'),
+  'hotwings.jpeg': require('../../assets/recipes/hotwings.jpeg'),
+  'volcanodrink.jpeg': require('../../assets/recipes/volcanodrink.jpeg'),
+  'hellfirenoodles.jpeg': require('../../assets/recipes/hellfirenoodles.jpeg'),
+};
+
 const Favorite = () => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
@@ -24,7 +48,6 @@ const Favorite = () => {
     const db = getDatabase();
     const favoritesRef = ref(db, `favorites/${currentUser.uid}`);
 
-    // Ambil data favorit dari database
     const unsubscribe = onValue(favoritesRef, snapshot => {
       if (snapshot.exists()) {
         const data = snapshot.val();
@@ -58,13 +81,9 @@ const Favorite = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
       <Header />
-
-      {/* Title */}
       <Text style={styles.title}>MY FAVORITE</Text>
 
-      {/* Favorite Recipes */}
       {favorites.length === 0 ? (
         <Text style={styles.emptyText}>No favorite recipes yet.</Text>
       ) : (
@@ -72,7 +91,9 @@ const Favorite = () => {
           {favorites.map(recipe => (
             <View key={recipe.id} style={styles.imageWrapper}>
               <Image
-                source={require('../../assets/sushi.png')} // Ganti sesuai gambar resep
+                source={
+                  imageMap[recipe.image] || require('../../assets/sushi.png')
+                }
                 style={styles.recipeImage}
               />
               <TouchableOpacity onPress={() => removeFromFavorites(recipe.id)}>
@@ -82,12 +103,12 @@ const Favorite = () => {
                 />
               </TouchableOpacity>
               <Text style={styles.recipeName}>{recipe.recipeName}</Text>
+              <Text style={styles.recipeDescription}>{recipe.description}</Text>
             </View>
           ))}
         </View>
       )}
 
-      {/* Footer */}
       <Footer />
     </ScrollView>
   );
@@ -141,6 +162,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
+    textAlign: 'center',
+  },
+  recipeDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
     textAlign: 'center',
   },
 });

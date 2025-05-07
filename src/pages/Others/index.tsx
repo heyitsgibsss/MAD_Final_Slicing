@@ -1,10 +1,36 @@
-// screens/Dashboard.tsx
 import React from 'react';
-import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import Header from '../../components/molecules/Header';
 import Footer from '../../components/molecules/Footer';
 import {Gap} from '../../components/atoms/index';
-const Others = () => {
+
+const Others = ({navigation}) => {
+  const recipeItems = [
+    {
+      image: require('../../assets/recipes/chocolatelavacake.jpeg'),
+      screen: 'Details1',
+    },
+    {
+      image: require('../../assets/recipes/rainbowsmoothies.jpeg'),
+      screen: 'Details2',
+    },
+    {
+      image: require('../../assets/recipes/pastabake.jpeg'),
+      screen: 'Details3',
+    },
+    {
+      image: require('../../assets/recipes/fruitpancake.jpeg'),
+      screen: 'Details4',
+    },
+  ];
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
@@ -13,31 +39,22 @@ const Others = () => {
 
       {/* Title */}
       <Text style={styles.title}>OTHER HAPPY RECIPES</Text>
-
       <Gap height={20} />
 
       {/* Images */}
       <View style={styles.imagesContainer}>
-        <Image
-          source={require('../../assets/avocadotoast.jpg')}
-          style={styles.recipeImage}
-        />
-        <Gap height={15} />
-        <Image
-          source={require('../../assets/yoghurt.jpg')}
-          style={styles.recipeImage}
-        />
-        <Gap height={15} />
-        <Image
-          source={require('../../assets/cupcakes.jpg')}
-          style={styles.recipeImage}
-        />
+        {recipeItems.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate(item.screen)}>
+            <Image source={item.image} style={styles.recipeImage} />
+            <Gap height={15} />
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* Footer */}
       <Footer />
-
-      {/* Greeting */}
     </ScrollView>
   );
 };
@@ -65,6 +82,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 160,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
   },
 });

@@ -11,7 +11,7 @@ import {
 import Header from '../../components/molecules/Header';
 import Footer from '../../components/molecules/Footer';
 import {getAuth} from 'firebase/auth';
-import {getDatabase, ref, get} from 'firebase/database';
+import {getDatabase, ref, get, onValue} from 'firebase/database';
 import {Gap} from '../../components/atoms/index';
 
 const Dashboard = ({navigation}) => {
@@ -55,6 +55,27 @@ const Dashboard = ({navigation}) => {
       </View>
     );
   }
+
+  // Daftar gambar dan navigasi tujuannya
+  const recipeItems = [
+    {
+      image: require('../../assets/recipes/chocolatelavacake.jpeg'),
+      screen: 'Details1',
+    },
+    {
+      image: require('../../assets/recipes/rainbowsmoothies.jpeg'),
+      screen: 'Details2',
+    },
+    {
+      image: require('../../assets/recipes/pastabake.jpeg'),
+      screen: 'Details3',
+    },
+    {
+      image: require('../../assets/recipes/fruitpancake.jpeg'),
+      screen: 'Details4',
+    },
+  ];
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Header />
@@ -68,17 +89,15 @@ const Dashboard = ({navigation}) => {
       <Gap height={20} />
       <Gap height={20} />
 
+      {/* Grid Atas */}
       <View style={styles.grid}>
-        {[
-          require('../../assets/saladbuah.jpg'),
-          require('../../assets/sushi.png'),
-        ].map((image, index) => (
+        {recipeItems.slice(0, 2).map((item, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => navigation.navigate('Details')}
+            onPress={() => navigation.navigate(item.screen)}
             style={styles.foodImage}>
             <Image
-              source={image}
+              source={item.image}
               style={styles.imageInside}
               resizeMode="cover"
             />
@@ -86,6 +105,7 @@ const Dashboard = ({navigation}) => {
         ))}
       </View>
 
+      {/* Quote di tengah */}
       <View style={styles.quoteContainer}>
         <Text style={styles.quote}>
           "When life gets messy, I stir, simmer, and season my way back to
@@ -93,25 +113,23 @@ const Dashboard = ({navigation}) => {
         </Text>
       </View>
 
+      {/* Grid Bawah */}
       <View style={styles.grid}>
-        {[
-          require('../../assets/pastatomat.png'),
-          require('../../assets/icecream.png'),
-        ].map((image, index) => (
+        {recipeItems.slice(2, 4).map((item, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => navigation.navigate('Details')}
+            onPress={() => navigation.navigate(item.screen)}
             style={styles.foodImage}>
             <Image
-              source={image}
+              source={item.image}
               style={styles.imageInside}
               resizeMode="cover"
             />
           </TouchableOpacity>
         ))}
       </View>
-      <Gap height={20} />
 
+      <Gap height={20} />
       <TouchableOpacity
         style={styles.button1}
         onPress={() => navigation.navigate('Others')}>
@@ -166,6 +184,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 10,
     overflow: 'hidden',
+    marginBottom: 10,
   },
   imageInside: {
     width: '100%',
