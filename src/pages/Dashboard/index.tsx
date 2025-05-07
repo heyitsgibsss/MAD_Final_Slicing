@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,20 +6,66 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Header from '../../components/molecules/Header';
 import Footer from '../../components/molecules/Footer';
+import {getAuth} from 'firebase/auth';
+import {getDatabase, ref, get} from 'firebase/database';
 import {Gap} from '../../components/atoms/index';
 
 const Dashboard = ({navigation}) => {
+  const [name, setName] = useState('');
+  const [currentMood, setCurrentMood] = useState('happy');
+  const [loading, setLoading] = useState(true);
+
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (currentUser) {
+        try {
+          const db = getDatabase();
+          const userRef = ref(db, `users/${currentUser.uid}`);
+
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            setName(userData.name || '');
+            setCurrentMood(userData.currentMood || 'happy');
+          } else {
+            setName(currentUser.displayName || '');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [currentUser]);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#000000" />
+      </View>
+    );
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Header username="angelika" />
+      <Header />
 
       <View style={styles.textContainer}>
-        <Text style={styles.moodText}>angelika,</Text>
-        <Text style={styles.currentMood}>your current mood is happy</Text>
+        <Text style={styles.moodText}>{name.toLowerCase()},</Text>
+        <Text style={styles.currentMood}>
+          your current mood is {currentMood}
+        </Text>
       </View>
+      <Gap height={20} />
       <Gap height={20} />
 
       <View style={styles.grid}>
@@ -91,12 +137,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 60,
+    paddingBottom: 100,
     alignItems: 'center',
   },
   textContainer: {
     alignSelf: 'flex-start',
-    marginVertical: 15,
   },
   moodText: {
     fontSize: 16,
@@ -142,10 +187,10 @@ const styles = StyleSheet.create({
   button1: {
     backgroundColor: '#F4C542',
     paddingVertical: 12,
-    marginTop: 20,
+    marginTop: 5,
     borderRadius: 5,
     width: 195,
-    marginBottom: 10,
+    marginBottom: 6,
     alignSelf: 'stretch',
     borderColor: '#F3891B',
     borderWidth: 2,

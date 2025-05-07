@@ -1,5 +1,4 @@
-// screens/Dashboard.tsx
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,10 +7,53 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import Header from '../../components/molecules/Header'; // Sesuaikan path jika perlu
-import Footer from '../../components/molecules/Footer'; // Import Footer component
+import Header from '../../components/molecules/Header';
+import Footer from '../../components/molecules/Footer';
+import {getDatabase, ref, set, remove} from 'firebase/database';
+import {getAuth} from 'firebase/auth';
 
 const RecipeDetails = () => {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+
+  // State untuk melacak status bookmark
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const toggleBookmark = (recipeId, recipeName) => {
+    if (!currentUser) {
+      console.log('User not logged in');
+      return;
+    }
+
+    const db = getDatabase();
+    const favoritesRef = ref(db, `favorites/${currentUser.uid}/${recipeId}`);
+
+    if (isBookmarked) {
+      // Hapus dari favorit
+      remove(favoritesRef)
+        .then(() => {
+          console.log('Recipe removed from favorites');
+          setIsBookmarked(false);
+        })
+        .catch(error => {
+          console.error('Error removing from favorites:', error);
+        });
+    } else {
+      // Simpan ke favorit
+      set(favoritesRef, {
+        recipeName: recipeName,
+        timestamp: new Date().toISOString(),
+      })
+        .then(() => {
+          console.log('Recipe saved to favorites');
+          setIsBookmarked(true);
+        })
+        .catch(error => {
+          console.error('Error saving to favorites:', error);
+        });
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Header />
@@ -28,9 +70,15 @@ const RecipeDetails = () => {
           </Text>
           <Text style={styles.recipeSubtitle}>A simple and flavorful dish</Text>
 
-          <TouchableOpacity style={styles.bookmarkIcon}>
+          <TouchableOpacity
+            style={styles.bookmarkIcon}
+            onPress={() => toggleBookmark('pesto-pasta', 'Pesto Pasta')}>
             <Image
-              source={require('../../assets/bookmark.png')}
+              source={
+                isBookmarked
+                  ? require('../../assets/bookmarkclose.png')
+                  : require('../../assets/bookmark.png')
+              }
               style={styles.bookmarkImage}
             />
           </TouchableOpacity>
@@ -65,31 +113,14 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
     alignItems: 'center',
   },
-  icon: {
-    width: 40,
-    height: 50,
-    resizeMode: 'contain',
-  },
-  greeting: {
-    fontSize: 14,
-    marginRight: 8,
-    fontWeight: '600',
-    color: '#000',
-  },
-  profileIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#ccc',
-  },
   card: {
     width: '100%',
     height: '95%',
     backgroundColor: '#fff',
     borderRadius: 10,
     overflow: 'hidden',
-    elevation: 3, // untuk Android shadow
-    shadowColor: '#000', // untuk iOS shadow
+    elevation: 3,
+    shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 8,

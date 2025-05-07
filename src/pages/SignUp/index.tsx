@@ -72,13 +72,15 @@ const SignUp = ({navigation}) => {
         <Gap height={2} />
         <TextInput
           label="password"
-          secureTextEntry
+          isPassword={true}
+          value={password}
           onChangeText={setPassword}
         />
         <Gap height={2} />
         <TextInput
           label="confirm password"
-          secureTextEntry
+          isPassword={true}
+          value={confirmPassword}
           onChangeText={setConfirmPassword}
         />
         <Gap height={2} />

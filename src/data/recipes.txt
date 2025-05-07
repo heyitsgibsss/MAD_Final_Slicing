@@ -1,0 +1,196 @@
+# COMPLETE RECIPE DATASET (20 RECIPES)
+
+=== FORMAT ===
+[ID] TITLE (MOOD)
+* Subtitle
+- Ingredients
+1. Steps
+
+=== RECIPES ===
+
+[1] Chocolate Lava Cake (happy)
+* Kue cokelat lembut dengan isian lumer
+- 100g dark chocolate
+- 100g mentega
+- 2 butir telur
+- 50g gula
+- 30g tepung terigu
+1. Lelehkan cokelat dan mentega
+2. Kocok telur dan gula
+3. Campurkan semua bahan
+4. Panggang 8-10 menit
+
+[2] Rainbow Smoothie Bowl (happy)
+* Bowl warna-warni penuh nutrisi
+- 1 pisang
+- 100g yogurt
+- 1/2 mangga
+- 1 sdm chia seed
+- Topping buah beragam
+1. Blender pisang, yogurt dan mangga
+2. Tuang ke bowl
+3. Tambahkan topping buah
+4. Taburi chia seed
+
+[3] Cheesy Pasta Bake (happy)
+* Pasta panggang keju yang memuaskan
+- 200g pasta
+- 100g keju cheddar
+- 50g keju mozzarella
+- 200ml saus tomat
+1. Rebus pasta hingga matang
+2. Campur dengan saus tomat
+3. Taburi keju
+4. Panggang hingga keju meleleh
+
+[4] Fruit Pancake Stack (happy)
+* Tumpukan pancake dengan buah segar
+- 150g tepung pancake
+- 200ml susu
+- 1 butir telur
+- 100g buah beri
+1. Campur bahan pancake
+2. Masak di teflon
+3. Tumpuk dengan buah
+4. Siram madu
+
+[5] Comforting Chicken Soup (sad)
+* Sup ayam hangat penenang
+- 1/2 ekor ayam
+- 2 liter air
+- 2 wortel
+- 1 batang daun bawang
+1. Rebus ayam hingga kaldu keluar
+2. Tambahkan wortel
+3. Bumbui dengan garam
+4. Taburi daun bawang
+
+[6] Mashed Potato Bowl (sad)
+* Kentang tumbuk lembut
+- 3 kentang besar
+- 50ml susu
+- 2 sdm mentega
+1. Rebus kentang hingga lunak
+2. Haluskan dengan susu dan mentega
+3. Tambahkan topping
+
+[7] Hot Chocolate with Marshmallow (sad)
+* Cokelat hangat dengan marshmallow
+- 2 sdm bubuk cokelat
+- 200ml susu
+- 5 marshmallow
+1. Panaskan susu
+2. Campur bubuk cokelat
+3. Tambahkan marshmallow
+
+[8] Creamy Mushroom Risotto (sad)
+* Nasi krim dengan jamur
+- 200g beras risotto
+- 100g jamur
+- 1 liter kaldu ayam
+1. Tumis jamur
+2. Masak beras dengan kaldu
+3. Aduk hingga kental
+
+[9] Stress-Relief Green Tea (stressed)
+* Teh hijau penenang
+- 1 sdt matcha
+- 200ml air panas
+- 1 sdt madu
+1. Kocok matcha dengan air
+2. Tambahkan madu
+
+[10] Avocado Toast (stressed)
+* Roti panggang dengan alpukat
+- 1 alpukat
+- 2 roti gandum
+- 1 sdt lemon juice
+1. Panggang roti
+2. Haluskan alpukat
+3. Oleskan pada roti
+
+[11] Oatmeal with Banana (stressed)
+* Oatmeal dengan pisang
+- 50g oatmeal
+- 200ml susu
+- 1 pisang
+1. Masak oatmeal
+2. Tambahkan pisang
+3. Beri madu
+
+[12] Lavender Honey Milk (stressed)
+* Susu lavender madu
+- 300ml susu
+- 1 sdt lavender
+- 1 sdm madu
+1. Panaskan susu dengan lavender
+2. Saring lavender
+3. Tambahkan madu
+
+[13] Rainbow Spring Rolls (bored)
+* Lumpia warna-warni
+- 10 kulit lumpia
+- 1 wortel (iris korek)
+- 1/2 mentimun (iris)
+1. Siapkan bahan isian
+2. Gulung lumpia
+3. Sajikan dengan saus
+
+[14] DIY Pizza (bored)
+* Pizza kreasi sendiri
+- 1 dasar pizza
+- 50ml saus tomat
+- Topping pilihan
+1. Olesi dengan saus
+2. Tambahkan topping
+3. Panggang hingga matang
+
+[15] Colorful Fruit Skewers (bored)
+* Tusuk buah warna-warni
+- 1/2 semangka
+- 1 buah nanas
+- 10 anggur
+1. Potong buah
+2. Tusuk bergantian
+3. Susun di piring
+
+[16] Experimental Sushi Burrito (bored)
+* Sushi ala burrito
+- 1 lembar nori
+- 200g nasi sushi
+- 50g salmon
+1. Ratakan nasi di nori
+2. Tambahkan isian
+3. Gulung seperti burrito
+
+[17] Spicy Ramen (angry)
+* Mie pedas meledak
+- 1 bungkus ramen pedas
+- 500ml air
+- 1 sdm sambal
+1. Rebus mie
+2. Tambahkan bumbu
+3. Beri sambal extra
+
+[18] Hot Wings Extreme (angry)
+* Sayap ayam super pedas
+- 10 sayap ayam
+- 5 sdm saus sambal
+1. Marinasi ayam
+2. Panggang hingga matang
+3. Lumuri saus pedas
+
+[19] Volcano Drink (angry)
+* Minuman ledakan pedas
+- 200ml soda
+- 1/2 sdt cabai bubuk
+1. Campur soda dan cabai
+2. Tambahkan es batu
+
+[20] Hellfire Noodles (angry)
+* Mie api neraka
+- 200g mie telur
+- 3 sdm sambal rawit
+1. Rebus mie
+2. Campur dengan sambal
+3. Aduk rata

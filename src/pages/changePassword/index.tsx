@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import Footer from '../../components/molecules/Footer';
 
 const ChangePassword = ({navigation}) => {
   const [newPassword, setNewPassword] = useState('');
@@ -69,9 +70,7 @@ const ChangePassword = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>created by avg</Text>
-      </View>
+      <Footer />
     </View>
   );
 };

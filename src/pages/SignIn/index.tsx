@@ -51,12 +51,27 @@ const SignIn = ({navigation}) => {
             value={email}
             onChangeText={e => setEmail(e)}
           />
-          <Gap height={1} />
-          <TextInput
-            placeholder="password"
-            secureTextEntry
-            onChangeText={setPassword}
-          />
+          <Gap height={24} />
+          <View style={styles.passwordWrapper}>
+            <TextInput
+              style={styles.input}
+              placeholder="password"
+              secureTextEntry={secureText}
+              onChangeText={setPassword}
+              value={password}
+            />
+            {password.length > 0 && (
+              <TouchableOpacity
+                style={styles.eyeicon}
+                onPress={() => setSecureText(!secureText)}>
+                {secureText ? (
+                  <Eye width={20} height={20} />
+                ) : (
+                  <EyeOff width={20} height={20} />
+                )}
+              </TouchableOpacity>
+            )}
+          </View>
           <Gap height={24} />
           <Button label="sign in" onPress={onSubmit} />
           <Gap height={16} />
@@ -117,6 +132,29 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 0.2,
+    borderColor: '#020202',
+    width: 285,
+    padding: 10,
+    alignSelf: 'center',
+    height: 40,
+  },
+  input: {
+    right: 5,
+    bottom: 10,
+    height: 48,
+    color: '#000000',
+    fontSize: 14,
+  },
+  eyeicon: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
   },
   registerContainer: {
     flexDirection: 'row',
