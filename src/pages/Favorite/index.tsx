@@ -46,20 +46,26 @@ const Favorite = () => {
     if (!currentUser) return;
 
     const db = getDatabase();
-    const favoritesRef = ref(db, `favorites/${currentUser.uid}`);
+    const favoritesRef = ref(db, `users/${currentUser.uid}/favorites`);
 
-    const unsubscribe = onValue(favoritesRef, snapshot => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        const formattedData = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key],
-        }));
-        setFavorites(formattedData);
-      } else {
-        setFavorites([]);
-      }
-    });
+    const unsubscribe = onValue(
+      favoritesRef,
+      snapshot => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const formattedData = Object.keys(data).map(key => ({
+            id: key,
+            ...data[key],
+          }));
+          setFavorites(formattedData);
+        } else {
+          setFavorites([]);
+        }
+      },
+      error => {
+        console.error('Error fetching favorites:', error);
+      },
+    );
 
     return () => unsubscribe();
   }, [currentUser]);
@@ -68,7 +74,7 @@ const Favorite = () => {
     if (!currentUser) return;
 
     const db = getDatabase();
-    const recipeRef = ref(db, `favorites/${currentUser.uid}/${recipeId}`);
+    const recipeRef = ref(db, `users/${currentUser.uid}/favorites/${recipeId}`);
 
     remove(recipeRef)
       .then(() => {

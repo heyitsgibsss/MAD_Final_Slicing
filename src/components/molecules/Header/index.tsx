@@ -7,10 +7,11 @@ import {getDatabase, ref, get} from 'firebase/database';
 const Header = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
+  const [userPhoto, setUserPhoto] = useState(null);
 
   useEffect(() => {
-    // Function to fetch the current user's name from Firebase
-    const fetchUsername = async () => {
+    // Function to fetch the current user's name and photo from Firebase
+    const fetchUserData = async () => {
       const auth = getAuth();
       const currentUser = auth.currentUser;
 
@@ -31,40 +32,48 @@ const Header = () => {
               // Fallback to displayName if available
               setUsername(currentUser.displayName || 'user');
             }
+            // Set user photo if available
+            if (userData.photo) {
+              setUserPhoto(userData.photo);
+            }
           } else {
             // If no data in database, use displayName or default
             setUsername(currentUser.displayName || 'user');
           }
         } catch (error) {
-          console.error('Error fetching username:', error);
-          setUsername('user'); // Default fallback on error
+          console.error('Error fetching user data:', error);
+          setUsername('user');
         }
       } else {
         setUsername('guest');
       }
     };
 
-    fetchUsername();
+    fetchUserData();
 
-    // Listen for auth state changes to update username accordingly
     const auth = getAuth();
-    const unsubscribe = auth.onAuthStateChanged(fetchUsername);
+    const unsubscribe = auth.onAuthStateChanged(fetchUserData);
 
-    // Clean up listener on component unmount
     return () => unsubscribe();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../assets/Moodcook.png')}
-        style={styles.icon}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+        <Image
+          source={require('../../../assets/Moodcook.png')}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
       <View style={styles.headerRight}>
         <Text style={styles.greeting}>hi, {username}</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Account')}>
           <Image
-            source={require('../../../assets/user-icon.png')}
+            source={
+              userPhoto
+                ? {uri: userPhoto}
+                : require('../../../assets/user-icon.png')
+            }
             style={styles.profileIcon}
           />
         </TouchableOpacity>

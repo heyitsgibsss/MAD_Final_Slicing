@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  Image,
   SafeAreaView,
 } from 'react-native';
-import Header from '../../components/molecules/Header';
+import Footer from '../../components/molecules/Footer';
+import {getDatabase, ref as dbRef, get, set} from 'firebase/database';
+import {getAuth} from 'firebase/auth';
 
 const moods = [
   {label: 'happy', emoji: '😊'},
@@ -17,20 +18,52 @@ const moods = [
   {label: 'angry', emoji: '😡'},
 ];
 
-const MoodRegister = () => {
+const MoodRegister = ({navigation}) => {
   const [selectedMood, setSelectedMood] = useState(null);
+  const [username, setUsername] = useState(''); // <-- Username state
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  useEffect(() => {
+    if (user) {
+      const db = getDatabase();
+      const userRef = dbRef(db, `users/${user.uid}/username`);
+
+      get(userRef)
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            setUsername(snapshot.val());
+          } else {
+            console.warn('Username not found');
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching username:', error);
+        });
+    }
+  }, [user]);
+
+  const handleMoodSelect = mood => {
+    setSelectedMood(mood);
+
+    if (user) {
+      const db = getDatabase();
+      const moodRef = dbRef(db, `users/${user.uid}/mood`);
+
+      set(moodRef, mood)
+        .then(() => {
+          navigation.replace('Dashboard', {uid: user.uid});
+        })
+        .catch(error => {
+          console.error('Error saving mood:', error);
+        });
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Header username="angelika" />
-      </View>
-
-      {/* Title */}
       <Text style={styles.title}>CHOOSE YOUR MOOD</Text>
 
-      {/* Mood Grid */}
       <View style={styles.moodGrid}>
         {moods.map((mood, index) => (
           <TouchableOpacity
@@ -39,15 +72,14 @@ const MoodRegister = () => {
               styles.moodButton,
               selectedMood === mood.label && styles.selectedMood,
             ]}
-            onPress={() => setSelectedMood(mood.label)}>
+            onPress={() => handleMoodSelect(mood.label)}>
             <Text style={styles.emoji}>{mood.emoji}</Text>
             <Text style={styles.label}>{mood.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* Footer */}
-      <Text style={styles.footer}>created by avg</Text>
+      <Footer />
     </SafeAreaView>
   );
 };
@@ -58,36 +90,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
+    paddingTop: 80,
     paddingHorizontal: 20,
-  },
-  header: {
-    backgroundColor: '#F9C841',
-    height: 50,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  logo: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain',
-  },
-  userSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  username: {
-    fontSize: 14,
-    color: '#000',
-    marginRight: 5,
-  },
-  userIcon: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
   },
   title: {
     fontSize: 18,
@@ -101,8 +105,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   moodButton: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 10,
     borderColor: '#ccc',
     borderWidth: 2,
@@ -111,7 +115,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   selectedMood: {
-    borderColor: '#007BFF',
     borderWidth: 3,
   },
   emoji: {
@@ -122,11 +125,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
     textTransform: 'capitalize',
-  },
-  footer: {
-    textAlign: 'center',
-    fontSize: 12,
-    color: '#000',
-    marginVertical: 20,
   },
 });

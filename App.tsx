@@ -10,7 +10,6 @@ import Dashboard from './src/pages/Dashboard';
 import Account from './src/pages/Account';
 import AllFood from './src/pages/AllFood';
 import ChangePassword from './src/pages/ChangePassword';
-import Details from './src/pages/Details';
 import Favorite from './src/pages/Favorite';
 import MoodRegister from './src/pages/MoodRegister';
 import Others from './src/pages/Others';
@@ -53,7 +52,6 @@ const App = () => {
         <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="AllFood" component={AllFood} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
-        <Stack.Screen name="Details" component={Details} />
         <Stack.Screen name="Favorite" component={Favorite} />
         <Stack.Screen name="MoodRegister" component={MoodRegister} />
         <Stack.Screen name="Others" component={Others} />

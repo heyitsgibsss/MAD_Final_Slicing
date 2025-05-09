@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,13 +9,12 @@ import {
 } from 'react-native';
 import Header from '../../../components/molecules/Header';
 import Footer from '../../../components/molecules/Footer';
-import {getDatabase, ref, set, remove} from 'firebase/database';
+import {getDatabase, ref, set, remove, onValue} from 'firebase/database';
 import {getAuth} from 'firebase/auth';
 
 const Details1 = () => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
-
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const recipeId = 'chocolate-lava-cake';
@@ -28,6 +27,28 @@ const Details1 = () => {
   const instructions =
     '1. Lelehkan cokelat dan mentega bersama-sama.\n2. Kocok telur dan gula hingga mengembang.\n3. Campurkan lelehan cokelat dan kocokan telur.\n4. Tambahkan tepung, aduk rata.\n5. Tuang ke dalam cetakan, panggang 8–10 menit.';
 
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const db = getDatabase();
+    const favoriteRef = ref(
+      db,
+      `users/${currentUser.uid}/favorites/${recipeId}`,
+    );
+
+    const unsubscribe = onValue(
+      favoriteRef,
+      snapshot => {
+        setIsBookmarked(snapshot.exists());
+      },
+      error => {
+        console.error('Error checking favorite status:', error);
+      },
+    );
+
+    return () => unsubscribe();
+  }, [currentUser]);
+
   const toggleBookmark = () => {
     if (!currentUser) {
       console.log('User not logged in');
@@ -35,10 +56,13 @@ const Details1 = () => {
     }
 
     const db = getDatabase();
-    const favoritesRef = ref(db, `favorites/${currentUser.uid}/${recipeId}`);
+    const favoriteRef = ref(
+      db,
+      `users/${currentUser.uid}/favorites/${recipeId}`,
+    );
 
     if (isBookmarked) {
-      remove(favoritesRef)
+      remove(favoriteRef)
         .then(() => {
           console.log('Recipe removed from favorites');
           setIsBookmarked(false);
@@ -47,7 +71,7 @@ const Details1 = () => {
           console.error('Error removing from favorites:', error);
         });
     } else {
-      set(favoritesRef, {
+      set(favoriteRef, {
         recipeName,
         image: imageName,
         description,

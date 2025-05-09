@@ -39,10 +39,10 @@ const AllFood = ({navigation}) => {
 
   const moodFilter = {
     happy: [1, 2, 3, 4],
-    sad: [5, 6, 7, 8, 9],
-    bored: [10, 11, 12, 13],
-    stressed: [14, 15, 16, 17],
-    angry: [18, 19, 20],
+    sad: [5, 6, 7, 8],
+    bored: [9, 10, 11, 12],
+    stressed: [13, 14, 15, 16],
+    angry: [17, 18, 19, 20],
     all: recipes.map(item => item.id),
   };
 

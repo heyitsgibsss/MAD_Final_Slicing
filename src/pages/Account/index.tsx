@@ -14,7 +14,7 @@ import {showMessage} from 'react-native-flash-message';
 import {Picker} from '@react-native-picker/picker';
 import Footer from '../../components/molecules/Footer';
 import {getAuth, signOut} from 'firebase/auth';
-import {getDatabase, ref, get} from 'firebase/database';
+import {getDatabase, ref, get, update, set} from 'firebase/database';
 
 const Account = ({navigation, route}) => {
   const [currentMood, setCurrentMood] = useState('happy');
@@ -28,22 +28,31 @@ const Account = ({navigation, route}) => {
   const currentUser = auth.currentUser;
 
   useEffect(() => {
-    // Fetch user data from Firebase Realtime Database
     const fetchUserData = async () => {
       if (currentUser) {
         try {
-          // Initialize database and create a reference to the user's data
           const db = getDatabase();
           const userRef = ref(db, `users/${currentUser.uid}`);
 
-          // Get user data
           const snapshot = await get(userRef);
           if (snapshot.exists()) {
             const userData = snapshot.val();
             setName(userData.name || '');
             setEmail(currentUser.email || '');
+            if (userData.mood) {
+              setCurrentMood(userData.mood);
+            }
+            if (userData.photo) {
+              setPhoto({uri: userData.photo});
+              setPhotoBased64(userData.photo);
+            }
           } else {
-            // If user data doesn't exist in database, at least set email from auth
+            // Initialize user data if it doesn't EXIST
+            await set(userRef, {
+              name: currentUser.displayName || '',
+              email: currentUser.email || '',
+              mood: 'happy',
+            });
             setEmail(currentUser.email || '');
             setName(currentUser.displayName || '');
           }
@@ -57,7 +66,6 @@ const Account = ({navigation, route}) => {
           setLoading(false);
         }
       } else {
-        // No user is signed in, redirect to sign-in
         navigation.replace('SignIn');
       }
     };
@@ -96,8 +104,6 @@ const Account = ({navigation, route}) => {
           text: 'Delete',
           style: 'destructive',
           onPress: () => {
-            // Implement delete account functionality here
-            // This would involve deleting from Authentication and Database
             showMessage({
               message:
                 'Account deletion functionality will be implemented soon',
@@ -135,7 +141,9 @@ const Account = ({navigation, route}) => {
   const openCamera = async () => {
     const result = await launchCamera({
       mediaType: 'photo',
-      quality: 0.5,
+      quality: 0.3,
+      maxWidth: 500,
+      maxHeight: 500,
       includeBase64: true,
     });
 
@@ -145,14 +153,16 @@ const Account = ({navigation, route}) => {
   const openGallery = async () => {
     const result = await launchImageLibrary({
       mediaType: 'photo',
-      quality: 0.5,
+      quality: 0.3,
+      maxWidth: 500,
+      maxHeight: 500,
       includeBase64: true,
     });
 
     handleImageResult(result, 'galeri');
   };
 
-  const handleImageResult = (result, source) => {
+  const handleImageResult = async (result, source) => {
     if (result.didCancel) {
       showMessage({
         message: `Pemilihan foto dari ${source} dibatalkan.`,
@@ -175,19 +185,68 @@ const Account = ({navigation, route}) => {
       }
 
       const base64 = `data:${asset.type};base64,${asset.base64}`;
+      console.log('Base64 length:', base64.length); // Debug: Log Base64 size
       setPhoto({uri: base64});
       setPhotoBased64(base64);
 
-      showMessage({
-        message: 'Foto profil berhasil diperbarui!',
-        type: 'success',
-      });
+      // Save photo to Firebase Realtime Database
+      if (currentUser) {
+        try {
+          const db = getDatabase();
+          const userRef = ref(db, `users/${currentUser.uid}/photo`);
+          console.log(
+            'Attempting to save photo to:',
+            `users/${currentUser.uid}/photo`,
+          ); // Debug: Log path
+          await set(userRef, base64);
+          showMessage({
+            message: 'Foto profil berhasil diperbarui dan disimpan!',
+            type: 'success',
+          });
+        } catch (error) {
+          console.error('Error saving photo:', error.message, error.code); // Debug: Detailed error
+          showMessage({
+            message: `Gagal menyimpan foto: ${error.message}`,
+            type: 'danger',
+          });
+        }
+      }
     } else {
       showMessage({
         message: 'Gagal mengambil gambar.',
         type: 'danger',
       });
     }
+  };
+
+  // Function to update mood in Firebase
+  const updateMoodInDatabase = async newMood => {
+    if (!currentUser) return;
+
+    try {
+      const db = getDatabase();
+      const userRef = ref(db, `users/${currentUser.uid}`);
+
+      await update(userRef, {
+        mood: newMood,
+      });
+
+      showMessage({
+        message: 'Mood updated successfully!',
+        type: 'success',
+      });
+    } catch (error) {
+      console.error('Error updating mood:', error);
+      showMessage({
+        message: 'Failed to update mood',
+        type: 'danger',
+      });
+    }
+  };
+
+  const handleMoodChange = itemValue => {
+    setCurrentMood(itemValue);
+    updateMoodInDatabase(itemValue);
   };
 
   if (loading) {
@@ -227,13 +286,13 @@ const Account = ({navigation, route}) => {
           <View style={styles.pickerWrapper}>
             <Picker
               selectedValue={currentMood}
-              onValueChange={itemValue => setCurrentMood(itemValue)}
+              onValueChange={handleMoodChange}
               style={styles.picker}>
               <Picker.Item label="happy" value="happy" />
               <Picker.Item label="sad" value="sad" />
-              <Picker.Item label="bored" value="bored" />
-              <Picker.Item label="stressed" value="stressed" />
+              <Picker.Item label="excited" value="excited" />
               <Picker.Item label="angry" value="angry" />
+              <Picker.Item label="relaxed" value="relaxed" />
             </Picker>
           </View>
         </View>
@@ -246,7 +305,7 @@ const Account = ({navigation, route}) => {
 
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Text style={styles.lightButtonText}>log out</Text>
+            <Text style={styles.lightButtonText1}>log out</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.passwordButton}
@@ -266,8 +325,6 @@ const Account = ({navigation, route}) => {
     </View>
   );
 };
-
-export default Account;
 
 const styles = StyleSheet.create({
   pageContainer: {
@@ -349,8 +406,8 @@ const styles = StyleSheet.create({
     width: '80%',
     alignItems: 'center',
   },
-  favoriteButtonText: {
-    color: '#888888',
+  buttonTextWhite: {
+    color: '#000000',
     fontSize: 14,
   },
   buttonRow: {
@@ -384,12 +441,21 @@ const styles = StyleSheet.create({
     width: '80%',
     alignItems: 'center',
   },
-  lightButtonText: {
+  buttonTextDark: {
     color: '#ffffff',
     fontSize: 14,
   },
+  footer: {
+    marginTop: 20,
+  },
+  footerText: {
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 12,
+    color: '#000000',
+  },
   lightButtonText1: {
-    color: '#000',
-    fontSize: 14,
+    color: '#fff',
   },
 });
+
+export default Account;

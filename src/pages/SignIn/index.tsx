@@ -7,19 +7,66 @@ import EyeOff from '../../assets/icons/eyeclose.svg';
 import Footer from '../../components/molecules/Footer';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import {showMessage} from 'react-native-flash-message';
+import {getDatabase, ref, get, child} from 'firebase/database';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
+  const [loading, setLoading] = useState(false); 
 
   const onSubmit = () => {
+    setLoading(true);
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         const user = userCredential.user;
-        navigation.navigate('Dashboard', {uid: user.uid});
-        console.log(user);
+        const uid = user.uid;
+
+        const db = getDatabase();
+        const dbRef = ref(db, `users/${uid}`);
+
+        get(dbRef)
+          .then(snapshot => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              const mood = userData.mood;
+              const username = userData.username || '';
+              const email = user.email;
+
+              if (mood) {
+                navigation.navigate('Dashboard', {uid});
+              } else {
+                navigation.navigate('MoodRegister', {
+                  uid,
+                  username,
+                  email,
+                });
+              }
+            } else {  
+              const email = user.email;
+              const username = email?.split('@')[0] || 'user';
+
+              // Store initial user info without mood
+              set(ref(db, `users/${uid}`), {
+                username,
+                email,
+              }).then(() => {
+                navigation.navigate('MoodRegister', {
+                  uid,
+                  username,
+                  email,
+                });
+              });
+            }
+          })
+          .catch(error => {
+            console.error('Database read error:', error);
+            showMessage({
+              message: 'Error reading user data',
+              type: 'danger',
+            });
+          });
       })
       .catch(error => {
         const errorMessage = error.message;
@@ -27,6 +74,9 @@ const SignIn = ({navigation}) => {
           message: errorMessage,
           type: 'danger',
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -73,7 +123,11 @@ const SignIn = ({navigation}) => {
             )}
           </View>
           <Gap height={24} />
-          <Button label="sign in" onPress={onSubmit} />
+          <Button
+            label={loading ? 'Signing in...' : 'sign in'}
+            onPress={onSubmit}
+            disabled={loading}
+          />
           <Gap height={16} />
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>don't have account yet?</Text>
@@ -84,7 +138,6 @@ const SignIn = ({navigation}) => {
         </View>
       </View>
 
-      {/* Footer Component */}
       <Footer />
     </View>
   );

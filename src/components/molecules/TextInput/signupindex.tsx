@@ -18,7 +18,7 @@ const TextInput = ({label, isPassword, ...props}) => {
         secureTextEntry={secureText} // Kondisi untuk password
         {...props}
       />
-      {isPassword && (
+      {isPassword > 0 && (
         <TouchableOpacity
           style={styles.eyeicon}
           onPress={() => setSecureText(!secureText)}>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     width: 279,
     marginBottom: 8,
-    position: 'relative', // Untuk memastikan ikon mata berada di dalam container
+    position: 'relative',
   },
   input: {
     backgroundColor: 'transparent',

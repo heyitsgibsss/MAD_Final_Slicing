@@ -14,6 +14,7 @@ const SignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onRegister = () => {
     if (password !== confirmPassword) {
@@ -46,6 +47,9 @@ const SignUp = ({navigation}) => {
           message: error.message,
           type: 'danger',
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -92,7 +96,11 @@ const SignUp = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <Button label="register" onPress={onRegister} />
+        <Button
+          label={loading ? 'Registering...' : 'register'}
+          onPress={onRegister}
+          disabled={loading}
+        />
       </View>
 
       <Footer />
