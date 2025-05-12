@@ -13,14 +13,14 @@ import {getAuth} from 'firebase/auth';
 const moods = [
   {label: 'happy', emoji: '😊'},
   {label: 'sad', emoji: '😢'},
-  {label: 'bored', emoji: '😐'},
-  {label: 'stress', emoji: '😫'},
+  {label: 'excited', emoji: '🤩'},
   {label: 'angry', emoji: '😡'},
+  {label: 'relaxed', emoji: '😌'},
 ];
 
 const MoodRegister = ({navigation}) => {
   const [selectedMood, setSelectedMood] = useState(null);
-  const [username, setUsername] = useState(''); // <-- Username state
+  const [username, setUsername] = useState('');
   const auth = getAuth();
   const user = auth.currentUser;
 

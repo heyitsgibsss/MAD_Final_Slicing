@@ -1,23 +1,131 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   Text,
-  Image,
   TextInput,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import Footer from '../../components/molecules/Footer';
+import {
+  getAuth,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from 'firebase/auth';
+import {getDatabase, ref, onValue} from 'firebase/database';
+import {showMessage} from 'react-native-flash-message';
 
 const ChangePassword = ({navigation}) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  // Fetch username in real-time
+  useEffect(() => {
+    if (user) {
+      const db = getDatabase();
+      const userRef = ref(db, `users/${user.uid}/name`);
+
+      const unsubscribe = onValue(
+        userRef,
+        snapshot => {
+          if (snapshot.exists()) {
+            setUsername(snapshot.val() || 'User');
+          } else {
+            setUsername(user.displayName || 'User');
+            console.warn('Username not found in database');
+          }
+        },
+        error => {
+          console.error('Error fetching username:', error);
+          setUsername(user.displayName || 'User');
+        },
+      );
+
+      return () => unsubscribe();
+    } else {
+      setUsername('Guest');
+    }
+  }, [user]);
 
   const toggleShowNewPassword = () => setShowNewPassword(!showNewPassword);
   const toggleShowConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
+
+  const handleChangePassword = async () => {
+    if (!newPassword || !confirmPassword) {
+      showMessage({
+        message: 'Please fill in both password fields',
+        type: 'danger',
+      });
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      showMessage({
+        message: 'Passwords do not match',
+        type: 'danger',
+      });
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      showMessage({
+        message: 'Password must be at least 6 characters',
+        type: 'danger',
+      });
+      return;
+    }
+
+    if (!user) {
+      showMessage({
+        message: 'No user is signed in',
+        type: 'danger',
+      });
+      navigation.navigate('SignIn');
+      return;
+    }
+
+    setLoading(true);
+    console.log('Starting password change, loading:', true);
+
+    try {
+      await updatePassword(user, newPassword);
+      showMessage({
+        message: 'Password updated successfully',
+        type: 'success',
+      });
+      console.log('Password updated for user:', user.uid);
+      navigation.goBack(); // Return to previous screen (e.g., Account)
+    } catch (error) {
+      if (error.code === 'auth/requires-recent-login') {
+        showMessage({
+          message: 'Please re-login to update your password',
+          type: 'warning',
+        });
+        navigation.navigate('SignIn');
+      } else {
+        showMessage({
+          message: error.message || 'Failed to update password',
+          type: 'danger',
+        });
+        console.error('Password change error:', error.message);
+      }
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+        console.log('Password change complete, loading:', false);
+      }, 500); // 500ms minimum loading time
+    }
+  };
 
   return (
     <View style={styles.pageContainer}>
@@ -27,11 +135,7 @@ const ChangePassword = ({navigation}) => {
           style={styles.logo}
         />
 
-        <View style={styles.profileCircle}>
-          <Text style={styles.profileInitial}>A</Text>
-        </View>
-
-        <Text style={styles.nameText}>angelika</Text>
+        <Text style={styles.nameText}>{username}</Text>
 
         <View style={styles.inputContainer}>
           <View style={styles.passwordWrapper}>
@@ -65,8 +169,13 @@ const ChangePassword = ({navigation}) => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.buttonBlue}>
-          <Text style={styles.buttonText}>confirm change password</Text>
+        <TouchableOpacity
+          style={[styles.buttonBlue, loading && styles.buttonDisabled]}
+          onPress={handleChangePassword}
+          disabled={loading}>
+          <Text style={styles.buttonText}>
+            {loading ? 'Updating...' : 'confirm change password'}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -96,20 +205,6 @@ const styles = StyleSheet.create({
     height: 72,
     resizeMode: 'contain',
     marginBottom: 20,
-  },
-  profileCircle: {
-    width: 130,
-    height: 130,
-    borderRadius: 80,
-    backgroundColor: '#333333',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  profileInitial: {
-    color: '#ffffff',
-    fontSize: 34,
-    fontWeight: '600',
   },
   nameText: {
     fontSize: 20,
@@ -152,17 +247,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
   },
+  buttonDisabled: {
+    backgroundColor: '#99ccff',
+    opacity: 0.7,
+  },
   buttonText: {
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '600',
-  },
-  footer: {
-    marginTop: 20,
-  },
-  footerText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#000000',
   },
 });

@@ -7,14 +7,16 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Modal,
+  Alert,
+  BackHandler,
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {Alert} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {Picker} from '@react-native-picker/picker';
 import Footer from '../../components/molecules/Footer';
-import {getAuth, signOut} from 'firebase/auth';
-import {getDatabase, ref, get, update, set} from 'firebase/database';
+import {getAuth, signOut, deleteUser} from 'firebase/auth';
+import {getDatabase, ref, get, update, set, remove} from 'firebase/database';
 
 const Account = ({navigation, route}) => {
   const [currentMood, setCurrentMood] = useState('happy');
@@ -23,6 +25,9 @@ const Account = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [confirmationCode, setConfirmationCode] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const auth = getAuth();
   const currentUser = auth.currentUser;
@@ -92,9 +97,21 @@ const Account = ({navigation, route}) => {
   };
 
   const handleDeleteAccount = () => {
+    setShowDeleteModal(true);
+  };
+
+  const confirmAccountDeletion = () => {
+    if (confirmationCode !== '123456') {
+      showMessage({
+        message: 'Invalid confirmation code',
+        type: 'danger',
+      });
+      return;
+    }
+
     Alert.alert(
-      'Delete Account',
-      'Are you sure you want to delete your account? This action cannot be undone.',
+      'Confirm Deletion',
+      'Are you absolutely sure you want to delete your account? This will permanently erase all your data and cannot be undone.',
       [
         {
           text: 'Cancel',
@@ -103,17 +120,41 @@ const Account = ({navigation, route}) => {
         {
           text: 'Delete',
           style: 'destructive',
-          onPress: () => {
-            showMessage({
-              message:
-                'Account deletion functionality will be implemented soon',
-              type: 'info',
-            });
-          },
+          onPress: () => deleteAccount(),
         },
       ],
       {cancelable: true},
     );
+  };
+
+  const deleteAccount = async () => {
+    if (!currentUser) return;
+
+    setIsDeleting(true);
+    try {
+      // Delete user data from Realtime Database
+      const db = getDatabase();
+      const userRef = ref(db, `users/${currentUser.uid}`);
+      await remove(userRef);
+
+      // Delete the user account
+      await deleteUser(currentUser);
+
+      showMessage({
+        message: 'Account deleted successfully',
+        type: 'success',
+      });
+      navigation.replace('SignIn');
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      showMessage({
+        message: 'Failed to delete account. Please try again.',
+        type: 'danger',
+      });
+    } finally {
+      setIsDeleting(false);
+      setShowDeleteModal(false);
+    }
   };
 
   const handleImagePicker = () => {
@@ -321,6 +362,53 @@ const Account = ({navigation, route}) => {
         </TouchableOpacity>
       </View>
 
+      {/* Delete Account Modal */}
+      <Modal
+        visible={showDeleteModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowDeleteModal(false)}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.deleteCard}>
+            <Text style={styles.deleteTitle}>Delete Account</Text>
+            <Text style={styles.deleteWarning}>
+              Warning: This action is irreversible! All your data will be permanently deleted.
+            </Text>
+            
+            <Text style={styles.deleteInstructions}>
+              To confirm deletion, please enter the confirmation code: 123456
+            </Text>
+            
+            <TextInput
+              style={styles.confirmationInput}
+              keyboardType="numeric"
+              value={confirmationCode}
+              onChangeText={setConfirmationCode}
+              autoFocus={true}
+            />
+            
+            <View style={styles.deleteButtonRow}>
+              <TouchableOpacity 
+                style={styles.cancelDeleteButton}
+                onPress={() => setShowDeleteModal(false)}>
+                <Text style={styles.cancelDeleteText}>Cancel</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={styles.confirmDeleteButton}
+                onPress={confirmAccountDeletion}
+                disabled={isDeleting}>
+                {isDeleting ? (
+                  <ActivityIndicator color="#ffffff" />
+                ) : (
+                  <Text style={styles.confirmDeleteText}>Delete Account</Text>
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <Footer />
     </View>
   );
@@ -455,6 +543,74 @@ const styles = StyleSheet.create({
   },
   lightButtonText1: {
     color: '#fff',
+  },
+  // Delete Modal Styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  deleteCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 20,
+    width: '100%',
+    maxWidth: 350,
+  },
+  deleteTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#d32f2f',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  deleteWarning: {
+    color: '#d32f2f',
+    marginBottom: 15,
+    lineHeight: 20,
+  },
+  deleteInstructions: {
+    color: '#333333',
+    marginBottom: 20,
+    lineHeight: 20,
+  },
+  confirmationInput: {
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 20,
+    fontSize: 16,
+  },
+  deleteButtonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cancelDeleteButton: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: 8,
+    padding: 12,
+    flex: 1,
+    marginRight: 10,
+    alignItems: 'center',
+  },
+  confirmDeleteButton: {
+    backgroundColor: '#d32f2f',
+    borderRadius: 8,
+    padding: 12,
+    flex: 1,
+    marginLeft: 10,
+    alignItems: 'center',
+  },
+  cancelDeleteText: {
+    color: '#333333',
+    fontWeight: 'bold',
+  },
+  confirmDeleteText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
   },
 });
 

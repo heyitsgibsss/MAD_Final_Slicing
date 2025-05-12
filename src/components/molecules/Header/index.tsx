@@ -7,7 +7,7 @@ import {getDatabase, ref, get} from 'firebase/database';
 const Header = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
-  const [userPhoto, setUserPhoto] = useState(null);
+  const [userPhoto, setPhoto] = useState(null);
 
   useEffect(() => {
     // Function to fetch the current user's name and photo from Firebase
@@ -34,7 +34,7 @@ const Header = () => {
             }
             // Set user photo if available
             if (userData.photo) {
-              setUserPhoto(userData.photo);
+              setPhoto(userData.photo);
             }
           } else {
             // If no data in database, use displayName or default

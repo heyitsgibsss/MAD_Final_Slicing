@@ -53,7 +53,7 @@ const Dashboard = ({navigation}) => {
   };
 
   // Function to select a random quote for the current mood
-  const selectRandomQuote = currentMood => {
+  const selectRandomQuote = (currentMood: string): string => {
     const quotes = moodQuotes[currentMood] || [
       'When life gets messy, I stir, simmer, and season my way back to peace.',
     ];
@@ -95,106 +95,106 @@ const Dashboard = ({navigation}) => {
     }
   }, [currentUser, navigation, mood]);
 
-  // Define recipe items with associated moods and screens
+  // Define recipe items with associated moods and recipeIds
   const recipeItems = [
     {
       image: require('../../assets/recipes/chocolatelavacake.jpeg'),
-      screen: 'Details1',
+      recipeId: 'chocolate-lava-cake',
       moods: ['happy'],
     },
     {
       image: require('../../assets/recipes/rainbowsmoothies.jpeg'),
-      screen: 'Details2',
+      recipeId: 'rainbow-smoothies',
       moods: ['happy'],
     },
     {
       image: require('../../assets/recipes/pastabake.jpeg'),
-      screen: 'Details3',
+      recipeId: 'pastabake',
       moods: ['happy'],
     },
     {
       image: require('../../assets/recipes/fruitpancake.jpeg'),
-      screen: 'Details4',
+      recipeId: 'fruit-pancake',
       moods: ['happy'],
     },
     {
       image: require('../../assets/recipes/chickensoup.jpeg'),
-      screen: 'Details5',
+      recipeId: 'chicken-soup',
       moods: ['sad'],
     },
     {
       image: require('../../assets/recipes/mashedpotato.jpeg'),
-      screen: 'Details6',
+      recipeId: 'mashed-potato',
       moods: ['sad'],
     },
     {
       image: require('../../assets/recipes/hotchoco.jpeg'),
-      screen: 'Details7',
+      recipeId: 'hot-choco',
       moods: ['sad'],
     },
     {
       image: require('../../assets/recipes/mushroomrisotto.jpeg'),
-      screen: 'Details8',
+      recipeId: 'mushroom-risotto',
       moods: ['sad'],
     },
     {
       image: require('../../assets/recipes/greentea.jpeg'),
-      screen: 'Details9',
+      recipeId: 'green-tea',
       moods: ['excited'],
     },
     {
       image: require('../../assets/recipes/avocadotoast.jpeg'),
-      screen: 'Details10',
+      recipeId: 'avocado-toast',
       moods: ['excited'],
     },
     {
       image: require('../../assets/recipes/oatmeal.jpeg'),
-      screen: 'Details11',
+      recipeId: 'oatmeal',
       moods: ['excited'],
     },
     {
       image: require('../../assets/recipes/lavenderhoneymilk.jpeg'),
-      screen: 'Details12',
+      recipeId: 'lavender-honey-milk',
       moods: ['excited'],
     },
     {
       image: require('../../assets/recipes/springrolls.jpeg'),
-      screen: 'Details13',
+      recipeId: 'spring-rolls',
       moods: ['angry'],
     },
     {
       image: require('../../assets/recipes/pizza.jpeg'),
-      screen: 'Details14',
+      recipeId: 'pizza',
       moods: ['angry'],
     },
     {
       image: require('../../assets/recipes/fruitskewers.jpeg'),
-      screen: 'Details15',
+      recipeId: 'fruit-skewers',
       moods: ['angry'],
     },
     {
       image: require('../../assets/recipes/sushiburito.jpeg'),
-      screen: 'Details16',
+      recipeId: 'sushi-burrito',
       moods: ['angry'],
     },
     {
       image: require('../../assets/recipes/ramen.jpeg'),
-      screen: 'Details17',
+      recipeId: 'ramen',
       moods: ['relaxed'],
     },
     {
       image: require('../../assets/recipes/hotwings.jpeg'),
-      screen: 'Details18',
+      recipeId: 'hot-wings',
       moods: ['relaxed'],
     },
     {
       image: require('../../assets/recipes/volcanodrink.jpeg'),
-      screen: 'Details19',
+      recipeId: 'volcano-drink',
       moods: ['relaxed'],
     },
     {
       image: require('../../assets/recipes/hellfirenoodles.jpeg'),
-      screen: 'Details20',
+      recipeId: 'hellfire-noodles',
       moods: ['relaxed'],
     },
   ];
@@ -226,7 +226,9 @@ const Dashboard = ({navigation}) => {
             {filteredRecipes.slice(0, 2).map((item, index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate(item.screen)}
+                onPress={() =>
+                  navigation.navigate('Details', {recipeId: item.recipeId})
+                }
                 style={styles.foodImage}>
                 <Image
                   source={item.image}
@@ -245,7 +247,9 @@ const Dashboard = ({navigation}) => {
             {filteredRecipes.slice(2, 4).map((item, index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate(item.screen)}
+                onPress={() =>
+                  navigation.navigate('Details', {recipeId: item.recipeId})
+                }
                 style={styles.foodImage}>
                 <Image
                   source={item.image}
@@ -295,7 +299,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 120,
+    paddingBottom: 110,
     alignItems: 'center',
   },
   textContainer: {
